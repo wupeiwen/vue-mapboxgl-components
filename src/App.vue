@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <mapview :osm-url="'http://139.224.131.57:8700'" :map-style="'custompositronstyle'" :center=" [115, 37]" :zoom="6" :pitch="30"
+    <mapview :osm-url="'http://139.224.131.57:8700'" :map-style="'custompositronstyle'" :center=" [120.142577,30.27719]" :zoom="12" :pitch="30"
      :access-token="'pk.eyJ1Ijoid3VwZWl3ZW4iLCJhIjoiY2o1eGFvNmQ2MDE5ejMydGJnYWl5dW05ZiJ9.LZMds8C2elQe8UTPm2YAJA'"
-     :map-type="'regionmap'" :region-name="'shanghai'">
+     :map-type="'bar3d'" :region-name="'shanghai'">
       <control :show-navigation="true" :show-fullscreen="true" :show-scale="true"></control>
-      <popup :laglng="[120.1, 30.1]" :html-content="'<h1>Hello World!</h1>'"></popup>
+      <popup :laglng="[120.1, 30.1]" :html-content="'<h1>Hello World!</h1>'" v-if="false"></popup>
     </mapview>
   </div>
 </template>
