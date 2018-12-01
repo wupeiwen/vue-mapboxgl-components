@@ -9,9 +9,11 @@ import Mapboxgl from 'mapbox-gl'
 export default {
   name: 'mapview',
   props: {
-    mapType: {
-      type: String,
-      default: 'base'
+    mapTypes: {
+      type: Array,
+      default: function () {
+        return ['base']
+      }
     },
     accessToken: {
       type: String,
@@ -82,13 +84,10 @@ export default {
     initMap () {
       const vue = this
       Mapboxgl.accessToken = vue.accessToken
-      const Style = require(`../config/${vue.mapType}.js`).default
-      const style = vue.mapType === 'bsse' ? new Style(vue.osmUrl, vue.mapStyle).config
-        : vue.mapType === 'regionmap' ? new Style(vue.osmUrl, vue.mapStyle, vue.regionName).config
-          : new Style(vue.osmUrl, vue.mapStyle, vue.latlngData).config
+
       const map = new Mapboxgl.Map({
         container: vue.id,
-        style: style,
+        style: vue.mergeStyle(),
         // 地图中心经纬度。经纬度用数组
         center: vue.center,
         // 地图的缩放等级
@@ -99,6 +98,29 @@ export default {
         bearing: vue.bearing
       })
       vue.$store.dispatch('map/setMap', map)
+    },
+    getStyle (mapType) {
+      const vue = this
+      const Style = require(`../config/${mapType}.js`).default
+      return mapType === 'bsse' ? new Style(vue.osmUrl, vue.mapStyle).config
+        : mapType === 'regionmap' ? new Style(vue.osmUrl, vue.mapStyle, vue.regionName).config
+          : new Style(vue.osmUrl, vue.mapStyle, vue.latlngData).config
+    },
+    mergeStyle () {
+      const vue = this
+      let style = vue.getStyle('base')
+      vue.mapTypes.map((item) => {
+        if (item !== 'base') {
+          const otherStyle = vue.getStyle(item)
+          style.sources = Object.assign(style.sources, otherStyle.sources)
+          otherStyle.layers.map((ite) => {
+            if (ite.id !== 'background') {
+              style.layers.push(ite)
+            }
+          })
+        }
+      })
+      return style
     }
   }
 }
