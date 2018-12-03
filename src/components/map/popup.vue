@@ -14,6 +14,10 @@ export default {
         return [120.1, 30.1]
       }
     },
+    showPopup: {
+      type: Boolean,
+      default: true
+    },
     htmlContent: {
       type: String,
       detault: '<h1>Hello World!</h1>'
@@ -25,31 +29,42 @@ export default {
     })
   },
   watch: {
-    map (oldvalue, newValue) {
+    map (newValue, oldvalue) {
       this.addPopup()
+    },
+    showPopup (newValue, oldvalue) {
+      if (newValue === false) {
+        this.removePopup()
+      } else {
+        this.addPopup()
+      }
+    },
+    htmlContent (newValue, oldvalue) {
+      this.removePopup()
+      this.addPopup()
+    },
+    laglng (newValue, oldvalue) {
+      this.removePopup()
+      this.addPopup()
+    }
+  },
+  data () {
+    return {
+      popup: null
     }
   },
   methods: {
     addPopup () {
       const vue = this
-      const markerHeight = 50
-      const markerRadius = 10
-      const linearOffset = 25
-      const popupOffsets = {
-        'top': [0, 0],
-        'top-left': [0, 0],
-        'top-right': [0, 0],
-        'bottom': [0, -markerHeight],
-        'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-        'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-        'left': [markerRadius, (markerHeight - markerRadius) * -1],
-        'right': [-markerRadius, (markerHeight - markerRadius) * -1]
-      }
-      const popup = new Mapboxgl.Popup({ offset: popupOffsets, className: 'my-class' })
+      vue.popup = null
+      vue.popup = new Mapboxgl.Popup({ className: 'my-popup-class' })
         .setLngLat(vue.laglng)
-        .setHTML('<h1>Hello World!</h1>')
+        .setHTML(vue.htmlContent)
         .addTo(vue.map)
-      console.log(popup)
+    },
+    removePopup () {
+      const vue = this
+      vue.popup.remove()
     }
   }
 }
