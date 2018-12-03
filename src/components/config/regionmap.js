@@ -1,7 +1,7 @@
 import Base from './base'
 export default class regionmap extends Base {
-  constructor (osmUrl, style, regionName) {
-    super(osmUrl, style)
+  constructor (osm, regionName, regionFill) {
+    super(osm)
     const data = require(`../geojson/region/${regionName}.json`)
     this.config.sources['regionmap-data'] = {
       'type': 'geojson',
@@ -13,9 +13,9 @@ export default class regionmap extends Base {
       'source': 'regionmap-data',
       'layout': {},
       'paint': {
-        'fill-color': '#000',
-        'fill-opacity': 0.4,
-        'fill-outline-color': '#323'
+        'fill-color': regionFill.fillColor || '#000',
+        'fill-opacity': regionFill.fillOpacity || 0.6,
+        'fill-outline-color': regionFill.fillOutlineColor || '#323'
       }
     })
   }

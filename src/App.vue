@@ -1,10 +1,13 @@
 <template>
   <div id="app">
-    <mapview :osm-url="'http://139.224.131.57:8700'" :map-style="'custompositronstyle'" :center=" [120.142577,30.27719]" :zoom="12" :pitch="30"
-     :access-token="'pk.eyJ1Ijoid3VwZWl3ZW4iLCJhIjoiY2o1eGFvNmQ2MDE5ejMydGJnYWl5dW05ZiJ9.LZMds8C2elQe8UTPm2YAJA'"
-     :map-types="['bar3d','building','regionmap','heatmap']" :region-name="'shanghai'">
+    <mapview
+      :center="[120.142577,30.27719]" :zoom="12" :pitch="30" :bearing="10"
+      :osm-config="{osmUrl: 'http://139.224.131.57:8700', backgroundStyle: 'custombrightstyle'}"
+      :map-types="['heatmap','bar3d']"
+      :heat-map-data="[{lat: 120.1,lng: 30.1,value: 2.1}, {lat: 120.2,lng: 30.2,value: 2.2}]"
+      :region-name="'shanghai'" :region-fill="{fillColor: 'red', fillOpacity: 0.4, fillOutlineColor: 'green'}">
       <control :show-navigation="true" :show-fullscreen="true" :show-scale="true"></control>
-      <popup :laglng="[120.1, 30.1]" :html-content="'<h1>Hello World!</h1>'"></popup>
+      <popup :laglng="laglng" :html-content="htmlContent" :show-popup="showpopup" v-if="false"></popup>
     </mapview>
   </div>
 </template>
@@ -18,6 +21,24 @@ export default {
   name: 'app',
   components: {
     mapview, control, popup
+  },
+  data () {
+    return {
+      showpopup: true,
+      laglng: [120.1, 30.1],
+      htmlContent: '<h1>Hello World!</h1>',
+      randomPopup: ''
+    }
+  },
+  mounted () {
+    let vue = this
+    vue.randomPopup = setInterval(() => {
+      vue.htmlContent = `<h1>随机数${Math.random()}</h1>`
+      vue.laglng = [120 + Math.random(), 30 + Math.random()]
+    }, 2000)
+  },
+  beforeDestroy () {
+    clearInterval(this.randomPopup)
   }
 }
 </script>

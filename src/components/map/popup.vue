@@ -56,15 +56,25 @@ export default {
   methods: {
     addPopup () {
       const vue = this
-      vue.popup = null
-      vue.popup = new Mapboxgl.Popup({ className: 'my-popup-class' })
-        .setLngLat(vue.laglng)
-        .setHTML(vue.htmlContent)
-        .addTo(vue.map)
+      if (vue.map) {
+        vue.popup = null
+        vue.popup = new Mapboxgl.Popup({ className: 'my-popup-class' })
+          .setLngLat(vue.laglng)
+          .setHTML(vue.htmlContent)
+          .addTo(vue.map)
+        console.log('%cvue-mapboxgl: Add Popup', 'color: #67C23A;')
+      }
     },
     removePopup () {
       const vue = this
-      vue.popup.remove()
+      if (vue.popup) {
+        vue.popup.remove()
+        console.log('%cvue-mapboxgl: Remove Popup', 'color: #E6A23C;')
+        if (!vue.map) {
+          vue.popup = null
+          console.log('%cvue-mapboxgl: Set Popup Null', 'color: #F56C6C;')
+        }
+      }
     }
   }
 }

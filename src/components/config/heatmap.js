@@ -1,7 +1,7 @@
 import Base from './base'
 export default class Heatmap extends Base {
-  constructor (osmUrl, style, data) {
-    super(osmUrl, style)
+  constructor (osm, data) {
+    super(osm)
     this.config.sources['heatmap-data'] = {
       'type': 'geojson',
       'data': {

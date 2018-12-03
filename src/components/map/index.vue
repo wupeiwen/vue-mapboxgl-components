@@ -9,43 +9,47 @@ import Mapboxgl from 'mapbox-gl'
 export default {
   name: 'mapview',
   props: {
-    mapTypes: {
-      type: Array,
+    // osm配置
+    osmConfig: {
+      type: Object,
       default: function () {
-        return ['base']
+        return {
+          osmUrl: 'http://139.224.131.57:8700',
+          backgroundStyle: 'custombrightstyle'
+        }
       }
     },
-    accessToken: {
-      type: String,
-      default: 'pk.eyJ1Ijoid3VwZWl3ZW4iLCJhIjoiY2o1eGFvNmQ2MDE5ejMydGJnYWl5dW05ZiJ9.LZMds8C2elQe8UTPm2YAJA'
-    },
-    osmUrl: {
-      type: String,
-      default: 'http://139.224.131.57:8700'
-    },
-    mapStyle: {
-      type: String,
-      default: 'customdarkstyle'
-    },
+    // 地图中心经纬度。经纬度用数组
     center: {
       type: Array,
       default: function () {
         return [110, 30]
       }
     },
+    // 地图的缩放等级
     zoom: {
       type: Number,
       default: 5
     },
+    // 视角俯视的倾斜角度
     pitch: {
       type: Number,
       default: 0
     },
+    // 地图的旋转角度
     bearing: {
       type: Number,
       default: 0
     },
-    latlngData: {
+    // 可视化类别
+    mapTypes: {
+      type: Array,
+      default: function () {
+        return ['base']
+      }
+    },
+    // 热力图数据
+    heatMapData: {
       type: Array,
       default: function () {
         return [{
@@ -63,9 +67,44 @@ export default {
         }]
       }
     },
+    // 3d柱图数据
+    extrusion: {
+      type: Object,
+      default: function () {
+        return {
+          shape: 'column',
+          offset: 0.002,
+          maxHeight: 100,
+          minHeight: 10,
+          data: [{
+            lat: 120.058617889881,
+            lng: 30.3123084318025,
+            color: 'red',
+            height: 2.1
+          }, {
+            lat: 120.077143907547,
+            lng: 30.31249598846499,
+            color: 'red',
+            height: 2.2
+          }, {
+            lat: 120.07800221443175,
+            lng: 30.30878183662179,
+            color: 'red',
+            height: 2.3
+          }]
+        }
+      }
+    },
+    // 区域名称
     regionName: {
       type: String,
       default: 'shanghai'
+    },
+    regionFill: {
+      type: Object,
+      default: function () {
+        return { fillColor: 'red', fillOpacity: 0.4, fillOutineColor: 'green' }
+      }
     }
   },
   data () {
@@ -80,32 +119,41 @@ export default {
   mounted () {
     this.initMap()
   },
+  beforeDestroy () {
+    this.removeMap()
+  },
   methods: {
+    // 初始化地图
     initMap () {
       const vue = this
-      Mapboxgl.accessToken = vue.accessToken
-
       const map = new Mapboxgl.Map({
         container: vue.id,
         style: vue.mergeStyle(),
-        // 地图中心经纬度。经纬度用数组
         center: vue.center,
-        // 地图的缩放等级
         zoom: vue.zoom,
-        // 视角俯视的倾斜角度
         pitch: vue.pitch,
-        // 地图的旋转角度
         bearing: vue.bearing
       })
       vue.$store.dispatch('map/setMap', map)
+      console.log('%cvue-mapboxgl: Add Map', 'color: #67C23A;')
     },
+    // 销毁地图
+    removeMap () {
+      this.$store.state.map.map.remove()
+      console.log('%cvue-mapboxgl: Remove Map', 'color: #F56C6C;')
+      this.$store.dispatch('map/setMap', null)
+      console.log('%cvue-mapboxgl: Set Map Null', 'color: #F56C6C;')
+    },
+    // 获取单个样式
     getStyle (mapType) {
       const vue = this
       const Style = require(`../config/${mapType}.js`).default
-      return mapType === 'bsse' ? new Style(vue.osmUrl, vue.mapStyle).config
-        : mapType === 'regionmap' ? new Style(vue.osmUrl, vue.mapStyle, vue.regionName).config
-          : new Style(vue.osmUrl, vue.mapStyle, vue.latlngData).config
+      return mapType === 'regionmap' ? new Style(vue.osmConfig, vue.regionName, vue.regionFill).config
+        : mapType === 'heatmap' ? new Style(vue.osmConfig, vue.heatMapData).config
+          : mapType === 'bar3d' ? new Style(vue.osmConfig, vue.extrusion).config
+            : new Style(vue.osmConfig).config
     },
+    // 合并样式
     mergeStyle () {
       const vue = this
       let style = vue.getStyle('base')

@@ -33,18 +33,23 @@ export default {
   },
   methods: {
     setControl () {
-      if (this.showNavigation) {
+      if (this.map) {
+        if (this.showNavigation) {
         // 导航
-        this.map.addControl(new Mapboxgl.NavigationControl(), 'top-left')
-      }
-      if (this.showFullscreen) {
+          this.map.addControl(new Mapboxgl.NavigationControl(), 'top-left')
+          console.log('%cvue-mapboxgl: Add NavigationControl', 'color: #67C23A;')
+        }
+        if (this.showFullscreen) {
         // 全屏
-        this.map.addControl(new Mapboxgl.FullscreenControl())
-      }
-      if (this.showScale) {
+          this.map.addControl(new Mapboxgl.FullscreenControl())
+          console.log('%cvue-mapboxgl: Add FullscreenControl', 'color: #67C23A;')
+        }
+        if (this.showScale) {
         // 标尺
         // 'imperial' 英里,  'metric' 公制 or  'nautical' 海里
-        this.map.addControl(new Mapboxgl.ScaleControl({ maxWidth: 80, unit: 'metric' }))
+          this.map.addControl(new Mapboxgl.ScaleControl({ maxWidth: 80, unit: 'metric' }))
+          console.log('%cvue-mapboxgl: Add ScaleControl', 'color: #67C23A;')
+        }
       }
     }
   }

@@ -1,14 +1,14 @@
 export default class Base {
   // 构造函数
-  constructor (osmUrl, style) {
-    this.config = {
+  constructor (osm) {
+    this.osmConfig = {
       'version': 8,
-      'glyphs': `${osmUrl}/fonts/{fontstack}/{range}.pbf`,
+      'glyphs': `${osm.osmUrl}/fonts/{fontstack}/{range}.pbf`,
       'sources': {
         'osm-tiles': {
           'type': 'raster',
           'tiles': [
-            `${osmUrl}/styles/${style}/{z}/{x}/{y}.png`
+            `${osm.osmUrl}/styles/${osm.backgroundStyle}/{z}/{x}/{y}.png`
           ],
           'tileSize': 256
         }
@@ -21,13 +21,10 @@ export default class Base {
         'maxzoom': 22
       }]
     }
+    this._config = this.osmConfig
   }
   // get方法
   get config () {
     return this._config
-  }
-  // set方法
-  set config (_config) {
-    this._config = _config
   }
 }
