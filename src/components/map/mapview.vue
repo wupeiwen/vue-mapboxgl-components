@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" class="mapview">
+  <div :id="id" style="height: 100%;width: 100%;">
     <slot></slot>
   </div>
 </template>
@@ -9,7 +9,7 @@ import Mapboxgl from 'mapbox-gl'
 export default {
   name: 'mapview',
   props: {
-    // osm配置
+    // osm配置项
     osmConfig: {
       type: Object,
       default: function () {
@@ -19,27 +19,17 @@ export default {
         }
       }
     },
-    // 地图中心经纬度。经纬度用数组
-    center: {
-      type: Array,
+    // 地图配置项
+    mapConfig: {
+      type: Object,
       default: function () {
-        return [110, 30]
+        return {
+          center: [120, 30],
+          zoom: 4,
+          pitch: 0,
+          bearing: 0
+        }
       }
-    },
-    // 地图的缩放等级
-    zoom: {
-      type: Number,
-      default: 5
-    },
-    // 视角俯视的倾斜角度
-    pitch: {
-      type: Number,
-      default: 0
-    },
-    // 地图的旋转角度
-    bearing: {
-      type: Number,
-      default: 0
     },
     // 可视化类别
     mapTypes: {
@@ -48,8 +38,8 @@ export default {
         return ['base']
       }
     },
-    // 热力图数据
-    heatMapData: {
+    // 热力图配置项
+    heatmap: {
       type: Array,
       default: function () {
         return [{
@@ -67,7 +57,7 @@ export default {
         }]
       }
     },
-    // 3d柱图数据
+    // 3d柱图配置项
     extrusion: {
       type: Object,
       default: function () {
@@ -95,15 +85,47 @@ export default {
         }
       }
     },
-    // 区域名称
-    regionName: {
-      type: String,
-      default: 'shanghai'
-    },
-    regionFill: {
+    // 区域配置项
+    region: {
       type: Object,
       default: function () {
-        return { fillColor: 'red', fillOpacity: 0.4, fillOutineColor: 'green' }
+        return {
+          name: 'shanghai',
+          color: 'red',
+          opacity: 0.4,
+          outineColor: 'green'
+        }
+      }
+    },
+    // 线配置项
+    line: {
+      type: Object,
+      default: function () {
+        return {
+          color: 'green',
+          width: 6,
+          opacity: 0.8,
+          data: [
+            { lat1: 122, lng1: 37, lat2: 120, lng2: 30 },
+            { lat1: 110, lng1: 36, lat2: 120, lng2: 30 }
+          ]
+        }
+      }
+    },
+    // 点配置项
+    point: {
+      type: Object,
+      default: function () {
+        return {
+          color: 'orange',
+          textColor: 'red',
+          opacity: 0.8,
+          data: [
+            { lat: 122, lng: 37, name: '地点1' },
+            { lat: 110, lng: 36, name: '地点2' },
+            { lat: 120, lng: 30, name: '地点3' }
+          ]
+        }
       }
     }
   },
@@ -122,17 +144,50 @@ export default {
   beforeDestroy () {
     this.removeMap()
   },
+  // 配置项变化重新加载地图样式
+  watch: {
+    osmConfig () {
+      this.$store.state.map.map.setStyle(this.mergeStyle())
+    },
+    mapConfig () {
+      this.removeMap()
+      this.initMap()
+    },
+    mapTypes () {
+      this.$store.state.map.map.setStyle(this.mergeStyle())
+    },
+    heatmap () {
+      this.$store.state.map.map.setStyle(this.mergeStyle())
+    },
+    extrusion () {
+      this.$store.state.map.map.setStyle(this.mergeStyle())
+    },
+    region () {
+      this.$store.state.map.map.setStyle(this.mergeStyle())
+    },
+    line () {
+      this.$store.state.map.map.setStyle(this.mergeStyle())
+    },
+    point () {
+      this.$store.state.map.map.setStyle(this.mergeStyle())
+    }
+  },
   methods: {
     // 初始化地图
     initMap () {
       const vue = this
       const map = new Mapboxgl.Map({
         container: vue.id,
+        // 地图的样式
         style: vue.mergeStyle(),
-        center: vue.center,
-        zoom: vue.zoom,
-        pitch: vue.pitch,
-        bearing: vue.bearing
+        // 地图的中心点（经纬度用数组）
+        center: vue.mapConfig.center,
+        // 地图的缩放等级
+        zoom: vue.mapConfig.zoom,
+        // 视角俯视的倾斜角度
+        pitch: vue.mapConfig.pitch,
+        // 地图的旋转角度
+        bearing: vue.mapConfig.bearing
       })
       vue.$store.dispatch('map/setMap', map)
       console.log('%cvue-mapboxgl: Add Map', 'color: #67C23A;')
@@ -148,10 +203,12 @@ export default {
     getStyle (mapType) {
       const vue = this
       const Style = require(`../config/${mapType}.js`).default
-      return mapType === 'regionmap' ? new Style(vue.osmConfig, vue.regionName, vue.regionFill).config
-        : mapType === 'heatmap' ? new Style(vue.osmConfig, vue.heatMapData).config
+      return mapType === 'regionmap' ? new Style(vue.osmConfig, vue.regionl).config
+        : mapType === 'heatmap' ? new Style(vue.osmConfig, vue.heatmap).config
           : mapType === 'bar3d' ? new Style(vue.osmConfig, vue.extrusion).config
-            : new Style(vue.osmConfig).config
+            : mapType === 'line' ? new Style(vue.osmConfig, vue.line).config
+              : mapType === 'point' ? new Style(vue.osmConfig, vue.point).config
+                : new Style(vue.osmConfig).config
     },
     // 合并样式
     mergeStyle () {
@@ -173,10 +230,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less" scoped>
-  .mapview {
-    height: 100%;
-    width: 100%;
-  }
-</style>

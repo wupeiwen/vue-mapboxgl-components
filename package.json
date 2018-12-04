@@ -1,10 +1,21 @@
 {
-  "name": "vue-mapbox",
-  "version": "0.1.0",
-  "private": true,
+  "name": "vue-mapboxgl",
+  "version": "0.1.1",
+  "author": {
+    "name": "wupeiwen",
+    "email" : "javapeiwen2010@gmail.com",
+    "url" : "https://wupeiwen.github.io"
+  },
+  "license": "MIT",  
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/vue-mapboxgl.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-bundle": "vue-cli-service build --target lib --name vue-mapboxgl ./src/components/index.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
