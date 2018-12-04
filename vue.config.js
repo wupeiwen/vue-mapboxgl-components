@@ -1,6 +1,6 @@
 module.exports = {
   baseUrl: '/',
-  outputDir: 'dist',
+  outputDir: 'lib',
   lintOnSave: true,
   runtimeCompiler: false,
   productionSourceMap: true
