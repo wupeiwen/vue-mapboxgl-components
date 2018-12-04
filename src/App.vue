@@ -15,15 +15,8 @@
 </template>
 
 <script>
-import mapview from './components/map/mapview.vue'
-import control from './components/map/control.vue'
-import popup from './components/map/popup.vue'
-
 export default {
   name: 'app',
-  components: {
-    mapview, control, popup
-  },
   data () {
     return {
       showpopup: true,
