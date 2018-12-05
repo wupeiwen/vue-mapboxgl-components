@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Mapboxgl from 'mapbox-gl'
+import { Popup } from 'mapbox-gl'
 import { EventBus } from '../eventbus.js'
 export default {
   name: 'propup',
@@ -54,12 +54,15 @@ export default {
       this.map = map
     })
   },
+  beforeDestroy () {
+    EventBus.$off('mapLoaded')
+  },
   methods: {
     addPopup () {
       const vue = this
       if (vue.map) {
         vue.popup = null
-        vue.popup = new Mapboxgl.Popup({ className: 'my-popup-class' })
+        vue.popup = new Popup({ className: 'my-popup-class' })
           .setLngLat(vue.laglng)
           .setHTML(vue.htmlContent)
           .addTo(vue.map)

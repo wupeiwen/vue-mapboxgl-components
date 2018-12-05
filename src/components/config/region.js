@@ -2,10 +2,9 @@ import Base from './base'
 export default class regionmap extends Base {
   constructor (osm, region) {
     super(osm)
-    const data = require(`../geojson/region/${region.name}.json`)
     this.config.sources['regionmap-data'] = {
       'type': 'geojson',
-      'data': data
+      'data': region.geojson
     }
     this.config.layers.push({
       'id': 'maine',

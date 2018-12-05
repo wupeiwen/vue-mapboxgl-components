@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Mapboxgl from 'mapbox-gl'
+import { NavigationControl, FullscreenControl, ScaleControl } from 'mapbox-gl'
 import { EventBus } from '../eventbus.js'
 export default {
   name: 'control',
@@ -36,23 +36,26 @@ export default {
       this.map = map
     })
   },
+  beforeDestroy () {
+    EventBus.$off('mapLoaded')
+  },
   methods: {
     setControl () {
       if (this.map) {
         if (this.showNavigation) {
         // 导航
-          this.map.addControl(new Mapboxgl.NavigationControl(), 'top-left')
+          this.map.addControl(new NavigationControl(), 'top-left')
           console.log('%cvue-mapboxgl: Add NavigationControl', 'color: #67C23A;')
         }
         if (this.showFullscreen) {
         // 全屏
-          this.map.addControl(new Mapboxgl.FullscreenControl())
+          this.map.addControl(new FullscreenControl())
           console.log('%cvue-mapboxgl: Add FullscreenControl', 'color: #67C23A;')
         }
         if (this.showScale) {
         // 标尺
         // 'imperial' 英里,  'metric' 公制 or  'nautical' 海里
-          this.map.addControl(new Mapboxgl.ScaleControl({ maxWidth: 80, unit: 'metric' }))
+          this.map.addControl(new ScaleControl({ maxWidth: 80, unit: 'metric' }))
           console.log('%cvue-mapboxgl: Add ScaleControl', 'color: #67C23A;')
         }
       }

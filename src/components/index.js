@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const requireComponent = require.context(
   // 其组件目录的相对路径

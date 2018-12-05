@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Mapboxgl from 'mapbox-gl'
+import { Map } from 'mapbox-gl'
 import { EventBus } from '../eventbus.js'
 export default {
   name: 'mapview',
@@ -91,7 +91,7 @@ export default {
       type: Object,
       default: function () {
         return {
-          name: 'shanghai',
+          geojson: {},
           color: 'red',
           opacity: 0.4,
           outineColor: 'green'
@@ -178,7 +178,7 @@ export default {
     // 初始化地图
     initMap () {
       const vue = this
-      const map = new Mapboxgl.Map({
+      vue.map = new Map({
         container: vue.id,
         // 地图的样式
         style: vue.mergeStyle(),
@@ -191,7 +191,7 @@ export default {
         // 地图的旋转角度
         bearing: vue.mapConfig.bearing
       })
-      EventBus.$emit('mapLoaded', map)
+      EventBus.$emit('mapLoaded', vue.map)
       console.log('%cvue-mapboxgl: Add Map', 'color: #67C23A;')
     },
     // 销毁地图
