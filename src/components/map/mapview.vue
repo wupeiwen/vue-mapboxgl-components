@@ -203,7 +203,7 @@ export default {
     getStyle (mapType) {
       const vue = this
       const Style = require(`../config/${mapType}.js`).default
-      return mapType === 'regionmap' ? new Style(vue.osmConfig, vue.regionl).config
+      return mapType === 'region' ? new Style(vue.osmConfig, vue.region).config
         : mapType === 'heatmap' ? new Style(vue.osmConfig, vue.heatmap).config
           : mapType === 'bar3d' ? new Style(vue.osmConfig, vue.extrusion).config
             : mapType === 'line' ? new Style(vue.osmConfig, vue.line).config
