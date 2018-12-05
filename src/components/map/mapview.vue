@@ -6,6 +6,7 @@
 
 <script>
 import Mapboxgl from 'mapbox-gl'
+import { EventBus } from '../eventbus.js'
 export default {
   name: 'mapview',
   props: {
@@ -131,7 +132,8 @@ export default {
   },
   data () {
     return {
-      id: ''
+      id: '',
+      map: null
     }
   },
   created () {
@@ -147,29 +149,29 @@ export default {
   // 配置项变化重新加载地图样式
   watch: {
     osmConfig () {
-      this.$store.state.map.map.setStyle(this.mergeStyle())
+      this.map.setStyle(this.mergeStyle())
     },
     mapConfig () {
       this.removeMap()
       this.initMap()
     },
     mapTypes () {
-      this.$store.state.map.map.setStyle(this.mergeStyle())
+      this.map.setStyle(this.mergeStyle())
     },
     heatmap () {
-      this.$store.state.map.map.setStyle(this.mergeStyle())
+      this.map.setStyle(this.mergeStyle())
     },
     extrusion () {
-      this.$store.state.map.map.setStyle(this.mergeStyle())
+      this.map.setStyle(this.mergeStyle())
     },
     region () {
-      this.$store.state.map.map.setStyle(this.mergeStyle())
+      this.map.setStyle(this.mergeStyle())
     },
     line () {
-      this.$store.state.map.map.setStyle(this.mergeStyle())
+      this.map.setStyle(this.mergeStyle())
     },
     point () {
-      this.$store.state.map.map.setStyle(this.mergeStyle())
+      this.map.setStyle(this.mergeStyle())
     }
   },
   methods: {
@@ -189,15 +191,13 @@ export default {
         // 地图的旋转角度
         bearing: vue.mapConfig.bearing
       })
-      vue.$store.dispatch('map/setMap', map)
+      EventBus.$emit('mapLoaded', map)
       console.log('%cvue-mapboxgl: Add Map', 'color: #67C23A;')
     },
     // 销毁地图
     removeMap () {
-      this.$store.state.map.map.remove()
+      this.map.remove()
       console.log('%cvue-mapboxgl: Remove Map', 'color: #F56C6C;')
-      this.$store.dispatch('map/setMap', null)
-      console.log('%cvue-mapboxgl: Set Map Null', 'color: #F56C6C;')
     },
     // 获取单个样式
     getStyle (mapType) {

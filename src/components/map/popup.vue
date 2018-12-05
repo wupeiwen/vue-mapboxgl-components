@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import Mapboxgl from 'mapbox-gl'
+import { EventBus } from '../eventbus.js'
 export default {
   name: 'propup',
   props: {
@@ -22,11 +22,6 @@ export default {
       type: String,
       detault: '<h1>Hello World!</h1>'
     }
-  },
-  computed: {
-    ...mapState('map', {
-      map: state => state.map
-    })
   },
   watch: {
     map (newValue, oldvalue) {
@@ -50,8 +45,14 @@ export default {
   },
   data () {
     return {
-      popup: null
+      popup: null,
+      map: null
     }
+  },
+  mounted () {
+    EventBus.$on('mapLoaded', (map) => {
+      this.map = map
+    })
   },
   methods: {
     addPopup () {

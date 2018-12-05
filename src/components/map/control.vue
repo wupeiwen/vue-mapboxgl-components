@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import Mapboxgl from 'mapbox-gl'
+import { EventBus } from '../eventbus.js'
 export default {
   name: 'control',
   props: {
@@ -21,15 +21,20 @@ export default {
       detault: false
     }
   },
-  computed: {
-    ...mapState('map', {
-      map: state => state.map
-    })
-  },
   watch: {
     map (oldvalue, newValue) {
       this.setControl()
     }
+  },
+  data () {
+    return {
+      map: null
+    }
+  },
+  mounted () {
+    EventBus.$on('mapLoaded', (map) => {
+      this.map = map
+    })
   },
   methods: {
     setControl () {
