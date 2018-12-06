@@ -149,29 +149,44 @@ export default {
   // 配置项变化重新加载地图样式
   watch: {
     osmConfig () {
-      this.map.setStyle(this.mergeStyle())
+      if (this.map !== null) {
+        this.map.setStyle(this.mergeStyle())
+      }
     },
-    mapConfig () {
-      this.removeMap()
-      this.initMap()
+    mapConfig (newValue, oldValue) {
+      if (this.map !== null) {
+        this.map.flyTo(Object.assign({ speed: 1 }, newValue))
+      }
     },
     mapTypes () {
-      this.map.setStyle(this.mergeStyle())
+      if (this.map !== null) {
+        this.map.setStyle(this.mergeStyle())
+      }
     },
     heatmap () {
-      this.map.setStyle(this.mergeStyle())
+      if (this.map !== null) {
+        this.map.setStyle(this.mergeStyle())
+      }
     },
     extrusion () {
-      this.map.setStyle(this.mergeStyle())
+      if (this.map !== null) {
+        this.map.setStyle(this.mergeStyle())
+      }
     },
     region () {
-      this.map.setStyle(this.mergeStyle())
+      if (this.map !== null) {
+        this.map.setStyle(this.mergeStyle())
+      }
     },
     line () {
-      this.map.setStyle(this.mergeStyle())
+      if (this.map !== null) {
+        this.map.setStyle(this.mergeStyle())
+      }
     },
     point () {
-      this.map.setStyle(this.mergeStyle())
+      if (this.map !== null) {
+        this.map.setStyle(this.mergeStyle())
+      }
     }
   },
   methods: {
