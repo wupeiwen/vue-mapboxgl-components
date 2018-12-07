@@ -1,10 +1,12 @@
 import Base from './base'
+import { CreateBezierPoints } from '../util'
 export default class line extends Base {
   constructor (osm, line) {
     super(osm)
+    this.pointNumber = 100
     this.config.sources['lineData'] = {
       'type': 'geojson',
-      'data': this.setFeatures(line.data)
+      'data': this.setFeatures(line.data, line.useCurve)
     }
     this.config.layers.push({
       'id': 'lines',
@@ -22,7 +24,7 @@ export default class line extends Base {
     })
   }
 
-  setFeatures (data) {
+  setFeatures (data, useCurve) {
     let features = {
       'type': 'FeatureCollection',
       'features': data.map(item => {
@@ -31,7 +33,7 @@ export default class line extends Base {
           'properties': item,
           'geometry': {
             'type': 'LineString',
-            'coordinates': this.setCoordinates(item[0], item[1])
+            'coordinates': this.setCoordinates(item[0], item[1], useCurve)
           }
         }
       })
@@ -39,11 +41,8 @@ export default class line extends Base {
     return features
   }
 
-  setCoordinates (point1, point2) {
-    let coordinates = [
-      [point1.lat, point1.lng],
-      [point2.lat, point2.lng]
-    ]
+  setCoordinates (point1, point2, useCurve) {
+    let coordinates = useCurve ? new CreateBezierPoints([point1, { lat: point2.lat, lng: point1.lng }, point2], this.pointNumber) : [[point1.lat, point1.lng], [point2.lat, point2.lng]]
     return coordinates
   }
 }
