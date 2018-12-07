@@ -1,19 +1,19 @@
 {
   "name": "vue-mapboxgl-components",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "author": {
     "name": "wupeiwen",
-    "email" : "javapeiwen2010@gmail.com",
-    "url" : "https://wupeiwen.github.io"
+    "email": "javapeiwen2010@gmail.com",
+    "url": "https://wupeiwen.github.io"
   },
-  "license": "MIT",  
+  "license": "MIT",
   "private": false,
   "publishConfig": {
     "access": "public"
   },
-  "repository" :{
-    "type" : "git",
-    "url" : "https://github.com/wupeiwen/vue-mapboxgl-components"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wupeiwen/vue-mapboxgl-components"
   },
   "main": "./lib/vue-mapboxgl-components.common.js",
   "scripts": {
@@ -25,7 +25,6 @@
   "dependencies": {
     "mapbox-gl": "^0.51.0",
     "uuid": "^3.3.2",
-
     "vue": "^2.5.17",
     "vuex": "^3.0.1"
   },
