@@ -25,7 +25,9 @@ export default {
   },
   watch: {
     map (newValue, oldvalue) {
-      this.addPopup()
+      if (this.showPopup) {
+        this.addPopup()
+      }
     },
     showPopup (newValue, oldvalue) {
       if (newValue === false) {
@@ -35,12 +37,16 @@ export default {
       }
     },
     htmlContent (newValue, oldvalue) {
-      this.removePopup()
-      this.addPopup()
+      if (this.showPopup) {
+        this.removePopup()
+        this.addPopup()
+      }
     },
     laglng (newValue, oldvalue) {
-      this.removePopup()
-      this.addPopup()
+      if (this.showPopup) {
+        this.removePopup()
+        this.addPopup()
+      }
     }
   },
   data () {
