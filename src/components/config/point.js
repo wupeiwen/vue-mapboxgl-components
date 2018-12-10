@@ -12,18 +12,18 @@ export default class point extends Base {
       'source': 'pointData',
       'paint': {
         'circle-radius': (function () {
-          if (point.minRadius && point.maxRadius) {
+          if (point.radius) {
+            // 如果设置了半径，返回该半径
+            return point.radius
+          } else if ((point.minValue || point.maxValue) && (point.minRadius || point.maxRadius)) {
             // 如果设置了最大值半径和最小值半径，按照映射关系返回相应半径
             return {
               'property': 'value',
               'stops': [
-                [0, point.minRadius || 5],
-                [50, point.maxRadius || 10]
+                [point.minValue, point.minRadius],
+                [point.maxValue, point.maxRadius]
               ]
             }
-          } else if (point.radius) {
-            // 如果设置了半径，返回该半径
-            return point.radius
           } else {
             // 如果设置了最大值半径、最小值半径、半径均未设置，返回默认半径 5
             return 5
