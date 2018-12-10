@@ -65,23 +65,26 @@ export default {
         return {
           shape: 'column',
           offset: 0.002,
+          height: 1000,
           maxHeight: 100,
           minHeight: 10,
+          maxValue: 3000,
+          minValue: 0,
+          opacity: 0.8,
+          color: 'yellow',
+          colorList: ['white', 'red'],
           data: [{
             lat: 120.058617889881,
             lng: 30.3123084318025,
-            color: 'red',
-            height: 2.1
+            value: 2.1
           }, {
             lat: 120.077143907547,
             lng: 30.31249598846499,
-            color: 'red',
-            height: 2.2
+            value: 2.2
           }, {
             lat: 120.07800221443175,
             lng: 30.30878183662179,
-            color: 'red',
-            height: 2.3
+            value: 2.3
           }]
         }
       }
@@ -208,6 +211,8 @@ export default {
       })
       EventBus.$emit('mapLoaded', vue.map)
       console.log('%cvue-mapboxgl: Add Map', 'color: #67C23A;')
+      vue.registerEvents()
+      console.log('%cvue-mapboxgl: Register Events', 'color: #67C23A;')
     },
     // 销毁地图
     removeMap () {
@@ -241,6 +246,38 @@ export default {
         }
       })
       return style
+    },
+    // 注册地图事件
+    registerEvents () {
+      // click mouseenter mouseleave
+      let vue = this
+      this.map.on('click', 'points', function (e) {
+        vue.$emit('pointClick', e.features[0].properties)
+      })
+      this.map.on('mouseenter', 'points', function (e) {
+        vue.$emit('pointMouseenter', e.features[0].properties)
+      })
+      this.map.on('mouseleave', 'points', function (e) {
+        vue.$emit('pointMouseleave', e.features[0].properties)
+      })
+      this.map.on('click', 'lines', function (e) {
+        vue.$emit('lineClick', e.features[0].properties)
+      })
+      this.map.on('mouseenter', 'lines', function (e) {
+        vue.$emit('lineMouseenter', e.features[0].properties)
+      })
+      this.map.on('mouseleave', 'lines', function (e) {
+        vue.$emit('lineMouseleave', e.features[0].properties)
+      })
+      this.map.on('click', 'extrusions', function (e) {
+        vue.$emit('extrusionClick', e.features[0].properties)
+      })
+      this.map.on('mouseenter', 'extrusions', function (e) {
+        vue.$emit('extrusionMouseenter', e.features[0].properties)
+      })
+      this.map.on('mouseleave', 'extrusions', function (e) {
+        vue.$emit('extrusionMouseleave', e.features[0].properties)
+      })
     }
   }
 }
