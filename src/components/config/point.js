@@ -11,6 +11,7 @@ export default class point extends Base {
       'type': 'circle',
       'source': 'pointData',
       'paint': {
+        'circle-blur': 0,
         'circle-radius': (function () {
           if (point.radius) {
             // 如果设置了半径，返回该半径

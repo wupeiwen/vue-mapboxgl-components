@@ -123,6 +123,7 @@ export default {
         return {
           color: 'orange',
           textColor: 'red',
+          showAnimation: true,
           opacity: 0.8,
           data: [
             { lat: 122, lng: 37, name: '地点1' },
@@ -213,6 +214,7 @@ export default {
       console.log('%cvue-mapboxgl: Add Map', 'color: #67C23A;')
       vue.registerEvents()
       console.log('%cvue-mapboxgl: Register Events', 'color: #67C23A;')
+      vue.pointAnimotion()
     },
     // 销毁地图
     removeMap () {
@@ -246,6 +248,16 @@ export default {
         }
       })
       return style
+    },
+    // 动点
+    pointAnimotion () {
+      let vue = this
+      let num = 1
+      if (vue.point.showAnimation) {
+        setInterval(() => {
+          vue.map.setPaintProperty('points', 'circle-blur', num > 0.1 ? num = num - 0.1 : num = 1)
+        }, 200)
+      }
     },
     // 注册地图事件
     registerEvents () {
