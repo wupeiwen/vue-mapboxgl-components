@@ -258,7 +258,7 @@ export default {
         vue.$emit('pointMouseenter', e.features[0].properties)
       })
       this.map.on('mouseleave', 'points', function (e) {
-        vue.$emit('pointMouseleave', e.features[0].properties)
+        vue.$emit('pointMouseleave', e)
       })
       this.map.on('click', 'lines', function (e) {
         vue.$emit('lineClick', e.features[0].properties)
@@ -267,7 +267,7 @@ export default {
         vue.$emit('lineMouseenter', e.features[0].properties)
       })
       this.map.on('mouseleave', 'lines', function (e) {
-        vue.$emit('lineMouseleave', e.features[0].properties)
+        vue.$emit('lineMouseleave', e)
       })
       this.map.on('click', 'extrusions', function (e) {
         vue.$emit('extrusionClick', e.features[0].properties)
@@ -276,7 +276,7 @@ export default {
         vue.$emit('extrusionMouseenter', e.features[0].properties)
       })
       this.map.on('mouseleave', 'extrusions', function (e) {
-        vue.$emit('extrusionMouseleave', e.features[0].properties)
+        vue.$emit('extrusionMouseleave', e)
       })
     }
   }
