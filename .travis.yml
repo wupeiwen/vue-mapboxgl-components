@@ -1,0 +1,20 @@
+language : node_js
+
+node_js:
+  - 8.11.2 
+
+branches:
+  only:
+  - master
+
+install:
+- yarn
+
+script:
+- yarn build-bundle
+
+deploy:
+  provider: npm
+  email: javpeiwen2010@gmail.com
+  api_key: "$npm_token"
+  skip_cleanup: true
