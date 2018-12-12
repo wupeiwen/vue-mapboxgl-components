@@ -3,7 +3,7 @@
     <mapview
       :map-config="{center:[120.142577,30.27719], zoom:5, pitch:0, bearing:0}"
       :osm-config="{osmUrl: 'http://139.224.131.57:8700', backgroundStyle: 'custombrightstyle'}"
-      :map-types="['point']"
+      :map-types="maptypes"
       :extrusion="extrusion"
       @pointClick="pointClick"
       :line="{color: 'green', width: 3, opacity: 0.5, data:[[{lat: 122,lng: 40},{lat: 120,lng: 30}], [{lat: 110,lng: 36},{lat: 120,lng: 30}]]}"
@@ -25,6 +25,7 @@ export default {
       laglng: [120.1, 30.1],
       htmlContent: '<h1>Hello World!</h1>',
       randomPopup: '',
+      maptypes: ['point'],
       extrusion: {
         shape: 'column',
         offset: 0.003,
@@ -41,10 +42,11 @@ export default {
   },
   mounted () {
     let vue = this
+    let flag = true
     vue.randomPopup = setInterval(() => {
-      vue.htmlContent = `<h1>随机数${Math.random()}</h1>`
-      vue.laglng = [120 + Math.random(), 30 + Math.random()]
-    }, 2000)
+      flag = !flag
+      vue.maptypes = flag ? ['line'] : ['point']
+    }, 10000)
   },
   beforeDestroy () {
     clearInterval(this.randomPopup)

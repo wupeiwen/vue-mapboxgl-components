@@ -137,7 +137,8 @@ export default {
   data () {
     return {
       id: '',
-      map: null
+      map: null,
+      pointAnimotion: ''
     }
   },
   created () {
@@ -164,6 +165,7 @@ export default {
     },
     mapTypes () {
       if (this.map !== null) {
+        this.ifPointAnimation()
         this.map.setStyle(this.mergeStyle())
       }
     },
@@ -214,7 +216,7 @@ export default {
       console.log('%cvue-mapboxgl: Add Map', 'color: #67C23A;')
       vue.registerEvents()
       console.log('%cvue-mapboxgl: Register Events', 'color: #67C23A;')
-      vue.pointAnimotion()
+      vue.ifPointAnimation()
     },
     // 销毁地图
     removeMap () {
@@ -249,15 +251,43 @@ export default {
       })
       return style
     },
-    // 动点
-    pointAnimotion () {
-      let vue = this
-      let num = 1
-      if (vue.point.showAnimation) {
-        setInterval(() => {
-          vue.map.setPaintProperty('points', 'circle-blur', num > 0.1 ? num = num - 0.1 : num = 1)
-        }, 200)
+    // 判断是否启用动点
+    ifPointAnimation () {
+      if (this.mapTypes.includes('point') && this.point.showAnimation) {
+        if (!this.pointAnimotion) {
+          this.addPointAnimotion()
+        }
+      } else {
+        if (this.pointAnimotion) {
+          this.removePointAnimotion()
+        }
       }
+    },
+    addPointAnimotion () {
+      let vue = this
+      let num = 0
+      let flag = 'up'
+      vue.pointAnimotion = setInterval(() => {
+        if (num < 1 && flag === 'up') {
+          num = Number(parseFloat(num + 0.1).toFixed(1))
+        }
+        if (num >= 1 && flag === 'up') {
+          num = Number(parseFloat(num - 0.1).toFixed(1))
+          flag = 'down'
+        }
+        if (num > 0 && flag === 'down') {
+          num = Number(parseFloat(num - 0.1).toFixed(1))
+        }
+        if (num === 0 && flag === 'down') {
+          num = 0.2
+          flag = 'up'
+        }
+        vue.map.setPaintProperty('points', 'circle-blur', num)
+      }, 200)
+    },
+    removePointAnimotion () {
+      clearInterval(this.pointAnimotion)
+      this.pointAnimotion = ''
     },
     // 注册地图事件
     registerEvents () {
