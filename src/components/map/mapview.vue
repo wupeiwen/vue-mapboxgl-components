@@ -108,6 +108,8 @@ export default {
         return {
           color: 'green',
           width: 6,
+          useCurve: true,
+          showAnimation: true,
           opacity: 0.8,
           data: [
             { lat1: 122, lng1: 37, lat2: 120, lng2: 30 },
@@ -138,7 +140,8 @@ export default {
     return {
       id: '',
       map: null,
-      pointAnimotion: ''
+      pointAnimotion: '',
+      lineAnimotion: ''
     }
   },
   created () {
@@ -217,6 +220,7 @@ export default {
       vue.registerEvents()
       console.log('%cvue-mapboxgl: Register Events', 'color: #67C23A;')
       vue.ifPointAnimation()
+      vue.ifLineAnimation()
     },
     // 销毁地图
     removeMap () {
@@ -259,7 +263,7 @@ export default {
         }
       } else {
         if (this.pointAnimotion) {
-          this.removePointAnimotion()
+          this.removeAnimotion('point')
         }
       }
     },
@@ -285,9 +289,44 @@ export default {
         vue.map.setPaintProperty('points', 'circle-blur', num)
       }, 200)
     },
-    removePointAnimotion () {
-      clearInterval(this.pointAnimotion)
-      this.pointAnimotion = ''
+    removeAnimotion (type) {
+      clearInterval(this[`${type}Animotion`])
+      this[`${type}Animotion`] = ''
+    },
+    // 判断是否启用线条动画
+    ifLineAnimation () {
+      if (this.mapTypes.includes('line') && this.line.showAnimation) {
+        if (!this.lineAnimotion) {
+          this.addLineAnimotion()
+        }
+      } else {
+        if (this.lineAnimotion) {
+          this.removeAnimotion('line')
+        }
+      }
+    },
+    addLineAnimotion () {
+      let vue = this
+      let data = ''
+      let lineLength = 0
+      let linePointNum = 0
+      vue.map.on('load', function () {
+        data = vue.map.getSource('lineData')['_data']['features']
+        lineLength = data[0]['geometry']['coordinates'].length
+        vue.lineAnimotion = setInterval(() => {
+          for (let index = 0; index < data.length; index++) {
+            vue.map.getSource(`fly_point${index}`).setData({
+              'type': 'Point',
+              'coordinates': data[index]['geometry']['coordinates'][linePointNum]
+            })
+          }
+          if (linePointNum < lineLength - 1) {
+            linePointNum = linePointNum + 1
+          } else {
+            linePointNum = 0
+          }
+        }, 100)
+      })
     },
     // 注册地图事件
     registerEvents () {

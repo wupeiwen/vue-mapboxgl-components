@@ -4,9 +4,10 @@ export default class line extends Base {
   constructor (osm, line) {
     super(osm)
     this.pointNumber = 100
+    let data = this.setFeatures(line.data, line.useCurve)
     this.config.sources['lineData'] = {
       'type': 'geojson',
-      'data': this.setFeatures(line.data, line.useCurve)
+      'data': data
     }
     this.config.layers.push({
       'id': 'lines',
@@ -22,6 +23,26 @@ export default class line extends Base {
         'line-opacity': line.opacity || 0.8
       }
     })
+    if (line.showAnimation) {
+      for (let index = 0; index < data['features'].length; index++) {
+        this.config.sources[`fly_point${index}`] = {
+          'type': 'geojson',
+          'data': {
+            'type': 'Point',
+            'coordinates': data['features'][index]['geometry']['coordinates'][0]
+          }
+        }
+        this.config.layers.push({
+          'id': `fly_point${index}`,
+          'source': `fly_point${index}`,
+          'type': 'circle',
+          'paint': {
+            'circle-radius': line.width * 1.5 || 4.5,
+            'circle-color': line.color || '#888'
+          }
+        })
+      }
+    }
   }
 
   setFeatures (data, useCurve) {
