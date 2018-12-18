@@ -169,6 +169,7 @@ export default {
     mapTypes () {
       if (this.map !== null) {
         this.ifPointAnimation()
+        this.ifLineAnimation()
         this.map.setStyle(this.mergeStyle())
       }
     },
@@ -310,23 +311,21 @@ export default {
       let data = ''
       let lineLength = 0
       let linePointNum = 0
-      vue.map.on('load', function () {
+      vue.lineAnimotion = setInterval(() => {
         data = vue.map.getSource('lineData')['_data']['features']
         lineLength = data[0]['geometry']['coordinates'].length
-        vue.lineAnimotion = setInterval(() => {
-          for (let index = 0; index < data.length; index++) {
-            vue.map.getSource(`fly_point${index}`).setData({
-              'type': 'Point',
-              'coordinates': data[index]['geometry']['coordinates'][linePointNum]
-            })
-          }
-          if (linePointNum < lineLength - 1) {
-            linePointNum = linePointNum + 1
-          } else {
-            linePointNum = 0
-          }
-        }, 100)
-      })
+        for (let index = 0; index < data.length; index++) {
+          vue.map.getSource(`fly_point${index}`).setData({
+            'type': 'Point',
+            'coordinates': data[index]['geometry']['coordinates'][linePointNum]
+          })
+        }
+        if (linePointNum < lineLength - 1) {
+          linePointNum = linePointNum + 1
+        } else {
+          linePointNum = 0
+        }
+      }, 200)
     },
     // 注册地图事件
     registerEvents () {
