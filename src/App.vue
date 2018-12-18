@@ -25,7 +25,7 @@ export default {
       laglng: [120.1, 30.1],
       htmlContent: '<h1>Hello World!</h1>',
       randomPopup: '',
-      maptypes: ['line', 'point'],
+      maptypes: ['point'],
       extrusion: {
         shape: 'column',
         offset: 0.003,
@@ -45,7 +45,8 @@ export default {
     let flag = true
     vue.randomPopup = setInterval(() => {
       flag = !flag
-    }, 3000)
+      vue.maptypes = flag ? ['point'] : ['line']
+    }, 5000)
   },
   beforeDestroy () {
     clearInterval(this.randomPopup)
