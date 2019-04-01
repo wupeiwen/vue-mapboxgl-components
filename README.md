@@ -16,7 +16,7 @@
 ```
 或者通过 yarn 添加依赖
 ```
-  yarn add vue-mapboxgl-components --save
+  yarn add vue-mapboxgl-components
 ```
 
 ### 引入
@@ -42,8 +42,8 @@ new Vue({
 <template>
   <div id="app">
     <mapview :map-config="mapConfig" :osm-config="osmConfig"
-      :map-types="mapTypes" :line="line" :point="point"
-      @pointClick="pointClick">
+      :map-types="mapTypes" :line="lineData" :point="pointData"
+      @pointClick="callback">
     </mapview>
   </div>
 </template>
@@ -54,17 +54,25 @@ export default {
   data () {
     return {
       mapConfig: {
+        <!-- 中心点 -->
         center: [120.142577, 30.27719],
+        <!-- 缩放等级 -->
         zoom: 5,
+        <!-- 视角俯视的倾斜角度 -->
         pitch: 0,
+        <!-- 地图的旋转角度 -->
         bearing: 0
       },
       osmConfig: {
-        osmUrl: 'http://139.224.131.57:8700',
+        <!-- osm地址 -->
+        osmUrl: 'http://xxx.xxx.xxx.xxx:8700',
+        <!-- 地图样式 -->
         backgroundStyle: 'custombrightstyle'
       },
+      <!-- 地图的可视化类型 -->
       mapTypes: ['line', 'point'],
-      line: {
+      <!-- 线配置项 -->
+      lineConfig: {
         color: 'green',
         width: 3,
         opacity: 0.5,
@@ -75,7 +83,8 @@ export default {
           [{ lat: 110, lng: 36 }, { lat: 120, lng: 30 }]
         ]
       },
-      point: {
+      <!-- 点配置项 -->
+      pointConfig: {
         color: 'orange',
         textColor: 'red',
         showAnimation: true,
@@ -91,8 +100,9 @@ export default {
     }
   },
   methods: {
-    pointClick (pointData) {
-      console.log(pointData)
+    <!-- 响应事件 -->
+    callback (data) {
+      console.log(data)
     }
   }
 }
