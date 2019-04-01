@@ -1,12 +1,8 @@
-<template>
-  <div class="propup"></div>
-</template>
-
 <script>
 import { Popup } from 'mapbox-gl'
 import { EventBus } from '../eventbus.js'
 export default {
-  name: 'propup',
+  name: 'popup',
   props: {
     laglng: {
       type: Array,
