@@ -1,13 +1,15 @@
 <template>
   <div id="app">
     <mapview :map-config="mapConfig" :osm-config="osmConfig"
-      :map-types="mapTypes" :line="line" :point="point"
-      @pointClick="pointClick">
+      :map-types="mapTypes" :line="lineConfig" :point="pointConfig"
+      @pointClick="callback">
+      <markers :data="markerData" @markerClick="callback" @markerMouseenter="callback" @markerMouseleave="callback"></markers>
     </mapview>
   </div>
 </template>
 
 <script>
+import imageBase64Code from '@/../public/base64'
 export default {
   name: 'app',
   data () {
@@ -22,8 +24,8 @@ export default {
         osmUrl: 'http://139.224.131.57:8700',
         backgroundStyle: 'custombrightstyle'
       },
-      mapTypes: ['line', 'point'],
-      line: {
+      mapTypes: ['line'],
+      lineConfig: {
         color: 'green',
         width: 3,
         opacity: 0.5,
@@ -34,7 +36,7 @@ export default {
           [{ lat: 110, lng: 36 }, { lat: 120, lng: 30 }]
         ]
       },
-      point: {
+      pointConfig: {
         color: 'orange',
         textColor: 'red',
         showAnimation: true,
@@ -46,12 +48,17 @@ export default {
           { lat: 110, lng: 36, value: 30, name: '地点2' },
           { lat: 120, lng: 30, value: 10, name: '地点3' }
         ]
-      }
+      },
+      markerData: [
+        { lat: 122, lng: 40, height: 48, width: 48, base64: imageBase64Code },
+        { lat: 110, lng: 36, height: 48, width: 48, base64: imageBase64Code },
+        { lat: 120, lng: 30, height: 48, width: 48, base64: imageBase64Code }
+      ]
     }
   },
   methods: {
-    pointClick (pointData) {
-      console.log(pointData)
+    callback (data) {
+      console.log(data)
     }
   }
 }
