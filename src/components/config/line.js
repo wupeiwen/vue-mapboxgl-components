@@ -1,6 +1,6 @@
 import Base from './base'
 import { CreateBezierPoints } from '../util'
-export default class line extends Base {
+export default class Line extends Base {
   constructor (osm, line) {
     super(osm)
     this.pointNumber = 100

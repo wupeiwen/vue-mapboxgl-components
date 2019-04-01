@@ -1,5 +1,5 @@
 import Base from './base'
-export default class point extends Base {
+export default class Point extends Base {
   constructor (osm, point) {
     super(osm)
     this.config.sources['pointData'] = {
