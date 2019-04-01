@@ -1,3 +1,7 @@
+<template>
+  <div class="popup"></div>
+</template>
+
 <script>
 import { Popup } from 'mapbox-gl'
 import { EventBus } from '../eventbus.js'
