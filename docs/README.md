@@ -91,7 +91,7 @@ let callback = (data) =>{
 ------
 
 ### popup 弹框组件  <span style="color:orange;">[ ]</span>
-使用`<popup></popup>`标签实现和地理坐标系结合的弹窗，共有`showPopup`、`laglng`、`htmlContent`三个标签属性。
+使用`<popup></popup>`标签实现和地理坐标系结合的弹窗，共有`showPopup`、`laglng`、`htmlContent`、`closeButton`、`closeOnClick`五个标签属性。
 #### `showPopup` <span style="color:red;">*</span>
 布尔类型，控制弹框的显示与隐藏，默认为`false`。可参考：
 ```
@@ -122,6 +122,24 @@ let laglng = [121.1, 30.1]
 </mapview>
 <!-- 弹出框内的DOM内容 -->
 let htmlContent = '<h1>Hello World!</h1>'
+```
+#### `closeButton` <span style="color:orange;">[ ]</span>
+布尔类型，控制弹框右上角关闭按钮的显示与隐藏，默认为`true`。可参考：
+```
+<!-- mapview标签 -->
+<mapview>
+  <!-- popup标签 -->
+  <popup :showPopup="true/false" :laglng="laglng" :htmlContent="htmlContent" :closeButton="false"></popup>
+</mapview>
+```
+#### `closeOnClick` <span style="color:orange;">[ ]</span>
+布尔类型，点击地图是否关闭弹窗，默认为`false`。可参考：
+```
+<!-- mapview标签 -->
+<mapview>
+  <!-- popup标签 -->
+  <popup :showPopup="true/false" :laglng="laglng" :htmlContent="htmlContent" :closeOnClick="true"></popup>
+</mapview>
 ```
 ------
 
