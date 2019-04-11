@@ -21,6 +21,14 @@ export default {
     htmlContent: {
       type: String,
       detault: '<h1>Hello World!</h1>'
+    },
+    closeButton: {
+      type: Boolean,
+      default: true
+    },
+    closeOnClick: {
+      type: Boolean,
+      default: false
     }
   },
   watch: {
@@ -68,7 +76,7 @@ export default {
       const vue = this
       if (vue.map) {
         vue.popup = null
-        vue.popup = new Popup({ className: 'my-popup-class' })
+        vue.popup = new Popup({ className: 'my-popup-class', closeButton: vue.closeButton, closeOnClick: vue.closeOnClick })
           .setLngLat(vue.laglng)
           .setHTML(vue.htmlContent)
           .addTo(vue.map)
