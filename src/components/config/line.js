@@ -63,7 +63,7 @@ export default class Line extends Base {
   }
 
   setCoordinates (point1, point2, useCurve) {
-    let coordinates = useCurve ? new CreateBezierPoints([point1, { lat: point2.lat, lng: point1.lng }, point2], this.pointNumber) : [[point1.lat, point1.lng], [point2.lat, point2.lng]]
+    let coordinates = useCurve ? new CreateBezierPoints([point1, { lng: point2.lng, lat: point1.lat }, point2], this.pointNumber) : [[point1.lng, point1.lat], [point2.lng, point2.lat]]
     return coordinates
   }
 }

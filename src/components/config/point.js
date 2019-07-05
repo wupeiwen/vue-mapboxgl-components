@@ -58,7 +58,7 @@ export default class Point extends Base {
           'properties': item,
           'geometry': {
             'type': 'Point',
-            'coordinates': this.setCoordinates(item.lat, item.lng)
+            'coordinates': this.setCoordinates(item.lng, item.lat)
           }
         }
       })
@@ -66,8 +66,8 @@ export default class Point extends Base {
     return features
   }
 
-  setCoordinates (lat, lng) {
-    let coordinates = [lat, lng]
+  setCoordinates (lng, lat) {
+    let coordinates = [lng, lat]
     return coordinates
   }
 }

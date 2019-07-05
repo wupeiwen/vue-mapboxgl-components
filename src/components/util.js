@@ -12,14 +12,14 @@ export class CreateBezierPoints {
   }
   multiPointBezier (points, t) {
     var len = points.length
-    var lat = 0; var lng = 0
+    var lng = 0; var lat = 0
 
     for (var i = 0; i < len; i++) {
       var point = points[i]
-      lat += point.lat * Math.pow((1 - t), (len - 1 - i)) * Math.pow(t, i) * (this.binomial(len - 1, i))
       lng += point.lng * Math.pow((1 - t), (len - 1 - i)) * Math.pow(t, i) * (this.binomial(len - 1, i))
+      lat += point.lat * Math.pow((1 - t), (len - 1 - i)) * Math.pow(t, i) * (this.binomial(len - 1, i))
     }
-    return [lat, lng]
+    return [lng, lat]
   }
   binomial (start, end) {
     var cs = 1; var bcs = 1

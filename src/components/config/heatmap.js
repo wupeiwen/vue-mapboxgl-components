@@ -7,7 +7,7 @@ export default class Heatmap extends Base {
       'data': {
         'type': 'FeatureCollection',
         'features': data.map(item => {
-          return { 'type': 'Feature', 'properties': item, 'geometry': { 'type': 'Point', 'coordinates': [ item.lat, item.lng ] } }
+          return { 'type': 'Feature', 'properties': item, 'geometry': { 'type': 'Point', 'coordinates': [ item.lng, item.lat ] } }
         })
       }
     }

@@ -146,7 +146,7 @@ let htmlContent = '<h1>Hello World!</h1>'
 ### markers 标记组件 <span style="color:orange;">[ ]</span>
 使用`<markers></markers>`标签实现点标记，有`data`一个标签属性，以及`markerClick`、`markerMouseenter` 、`markerMouseleave` 三个事件
 #### data <span style="color:red;">*</span>
-数组类型，数组的每个元素描述了标记点的`lat`精度、`lat`维度、`lat`标记图标的高度、`lat`标记图标的宽度以及`base64`标记图标的base64编码。
+数组类型，数组的每个元素描述了标记点的`lng`经度、`lat`维度、`height`标记图标的高度、`width`标记图标的宽度以及`base64`标记图标的base64编码。
 ```
 <!-- mapview标签 -->
 <mapview>
@@ -157,9 +157,9 @@ let htmlContent = '<h1>Hello World!</h1>'
 let imageBase64Code = 'data:image/png;base64,iVBORw0KGgoA...'
 <!-- 数据 -->
 let data = [
-  { lat: 122, lng: 40, height: 48, width: 48, base64: imageBase64Code },
-  { lat: 110, lng: 36, height: 48, width: 48, base64: imageBase64Code },
-  { lat: 120, lng: 30, height: 48, width: 48, base64: imageBase64Code }
+  { lng: 122, lat: 40, height: 48, width: 48, base64: imageBase64Code },
+  { lng: 110, lat: 36, height: 48, width: 48, base64: imageBase64Code },
+  { lng: 120, lat: 30, height: 48, width: 48, base64: imageBase64Code }
 ]
 ```
 #### @event <span style="color:orange;">[ ]</span>
@@ -174,7 +174,7 @@ let callback = (data) =>{
   console.log(data)
 }
 <!-- 浏览器控制台输出结果 -->
-{ lat: 122, lng: 40, height: 48, width: 48, base64: imageBase64Code }
+{ lng: 122, lat: 40, height: 48, width: 48, base64: imageBase64Code }
 ```
 ------
 
@@ -201,9 +201,9 @@ let callback = (data) =>{
 <!-- 连线数据 -->
 [
   <!-- 连线1数据 -->
-  [{ lat: 122, lng: 40 }, { lat: 120, lng: 30 }],
+  [{ lng: 122, lat: 40 }, { lng: 120, lat: 30 }],
   <!-- 连线2数据 -->
-  [{ lat: 110, lng: 36 }, { lat: 120, lng: 30 }]
+  [{ lng: 110, lat: 36 }, { lng: 120, lat: 30 }]
 ]
 ```
 ------
@@ -237,10 +237,10 @@ let callback = (data) =>{
 ```
 <!-- 点数据 -->
 [
-  <!-- 点数据1，精度、维度、描述文字、数值(使用半径/数值映射时必须有该字段) -->
-  { lat: 122, lng: 37, name: '地点1', value: 10 },
-  { lat: 110, lng: 36, name: '地点2', value: 20 },
-  { lat: 120, lng: 30, name: '地点3', value: 30 }
+  <!-- 点数据1，经度、维度、描述文字、数值(使用半径/数值映射时必须有该字段) -->
+  { lng: 122, lat: 37, name: '地点1', value: 10 },
+  { lng: 110, lat: 36, name: '地点2', value: 20 },
+  { lng: 120, lat: 30, name: '地点3', value: 30 }
 ]
 ```
 ------
@@ -250,7 +250,7 @@ let callback = (data) =>{
 `<String>`类型，横截面形状，默认值`'column'`正方形
 
 #### offset
-`<float>`类型，偏移量，用来控制正方形的长度，默认值`0.002`精/维度
+`<float>`类型，偏移量，用来控制正方形的长度，默认值`0.002`经/维度
 
 #### height
 `<float>`类型，柱子的高度，默认值`1000`
@@ -274,16 +274,16 @@ let callback = (data) =>{
 `<Array>`类型，柱子的数据。可参考：
 ```
 [{
-    lat: 120.058617889881,
-    lng: 30.3123084318025,
+    lng: 120.058617889881,
+    lat: 30.3123084318025,
     value: 2.1
   }, {
-    lat: 120.077143907547,
-    lng: 30.31249598846499,
+    lng: 120.077143907547,
+    lat: 30.31249598846499,
     value: 2.2
   }, {
-    lat: 120.07800221443175,
-    lng: 30.30878183662179,
+    lng: 120.07800221443175,
+    lat: 30.30878183662179,
     value: 2.3
 }]
 ```
@@ -309,9 +309,9 @@ let callback = (data) =>{
 `<Array>`类型，热力图数据。可参考：
 ```
 [
-  <!-- 热力数据1，精度、维度、数值 -->
-  { lat: 120.1, lng: 30.1, value: 2.1 },
-  { lat: 120.2, lng: 30.2, value: 2.2 },
-  { lat: 120.3, lng: 30.3, value: 2.3 }
+  <!-- 热力数据1，经度、维度、数值 -->
+  { lng: 120.1, lat: 30.1, value: 2.1 },
+  { lng: 120.2, lat: 30.2, value: 2.2 },
+  { lng: 120.3, lat: 30.3, value: 2.3 }
 ]
 ```

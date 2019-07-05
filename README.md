@@ -79,8 +79,8 @@ export default {
         useCurve: true,
         showAnimation: true,
         data: [
-          [{ lat: 122, lng: 40 }, { lat: 120, lng: 30 }],
-          [{ lat: 110, lng: 36 }, { lat: 120, lng: 30 }]
+          [{ lng: 122, lat: 40 }, { lng: 120, lat: 30 }],
+          [{ lng: 110, lat: 36 }, { lng: 120, lat: 30 }]
         ]
       },
       <!-- 点配置项 -->
@@ -92,9 +92,9 @@ export default {
         radius: 20,
         textOffset: 1,
         data: [
-          { lat: 122, lng: 40, value: 10, name: '地点1' },
-          { lat: 110, lng: 36, value: 30, name: '地点2' },
-          { lat: 120, lng: 30, value: 10, name: '地点3' }
+          { lng: 122, lat: 40, value: 10, name: '地点1' },
+          { lng: 110, lat: 36, value: 30, name: '地点2' },
+          { lng: 120, lat: 30, value: 10, name: '地点3' }
         ]
       }
     }

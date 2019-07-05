@@ -11,7 +11,7 @@ export default {
     data: {
       type: Array,
       default: function () {
-        return [{ lat: 120.1, lng: 30.1 }]
+        return [{ lng: 120.1, lat: 30.1 }]
       }
     },
     showMarker: {
@@ -81,7 +81,7 @@ export default {
             marker = new Marker()
           }
           vue.markers.push(
-            marker.setLngLat([item.lat, item.lng])
+            marker.setLngLat([item.lng, item.lat])
               .addTo(vue.map)
           )
           vue.registerEvents(el, item)

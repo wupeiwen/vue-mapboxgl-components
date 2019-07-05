@@ -67,7 +67,7 @@ export default class Bar3d extends Base {
           'properties': item,
           'geometry': {
             'type': 'Polygon',
-            'coordinates': [this.setCoordinates(item.lat, item.lng)]
+            'coordinates': [this.setCoordinates(item.lng, item.lat)]
           }
         }
       })
@@ -75,15 +75,15 @@ export default class Bar3d extends Base {
     return features
   }
 
-  setCoordinates (lat, lng) {
+  setCoordinates (lng, lat) {
     let coordinates = []
     if (this.shape === 'column') {
       coordinates = [
-        [lat - this.offset, lng + this.offset],
-        [lat - this.offset, lng - this.offset],
-        [lat + this.offset, lng - this.offset],
-        [lat + this.offset, lng + this.offset],
-        [lat - this.offset, lng + this.offset]
+        [lng - this.offset, lat + this.offset],
+        [lng - this.offset, lat - this.offset],
+        [lng + this.offset, lat - this.offset],
+        [lng + this.offset, lat + this.offset],
+        [lng - this.offset, lat + this.offset]
       ]
     }
     return coordinates

@@ -44,16 +44,16 @@ export default {
       type: Array,
       default: function () {
         return [{
-          lat: 120.1,
-          lng: 30.1,
+          lng: 120.1,
+          lat: 30.1,
           value: 2.1
         }, {
-          lat: 120.2,
-          lng: 30.2,
+          lng: 120.2,
+          lat: 30.2,
           value: 2.2
         }, {
-          lat: 120.3,
-          lng: 30.3,
+          lng: 120.3,
+          lat: 30.3,
           value: 2.3
         }]
       }
@@ -74,16 +74,16 @@ export default {
           color: 'yellow',
           colorList: ['white', 'red'],
           data: [{
-            lat: 120.058617889881,
-            lng: 30.3123084318025,
+            lng: 120.058617889881,
+            lat: 30.3123084318025,
             value: 2.1
           }, {
-            lat: 120.077143907547,
-            lng: 30.31249598846499,
+            lng: 120.077143907547,
+            lat: 30.31249598846499,
             value: 2.2
           }, {
-            lat: 120.07800221443175,
-            lng: 30.30878183662179,
+            lng: 120.07800221443175,
+            lat: 30.30878183662179,
             value: 2.3
           }]
         }
@@ -128,9 +128,9 @@ export default {
           showAnimation: true,
           opacity: 0.8,
           data: [
-            { lat: 122, lng: 37, name: '地点1' },
-            { lat: 110, lng: 36, name: '地点2' },
-            { lat: 120, lng: 30, name: '地点3' }
+            { lng: 122, lat: 37, name: '地点1' },
+            { lng: 110, lat: 36, name: '地点2' },
+            { lng: 120, lat: 30, name: '地点3' }
           ]
         }
       }
