@@ -306,6 +306,25 @@ let callback = (data) =>{
 ------
 
 ### heatmap
+#### radius
+`<Int>`类型，热力图单点的显示半径，单位像素，数值必须大于1，默认值`10`
+
+#### weight
+`<Int>`类型，热力图单点的权重，数值必须大于0，默认值`1`
+
+#### intensity
+`<Int>`类型，热力图强度，类似于权重，用于根据缩放等级控制强度，数值必须大于0，默认值`1`
+
+#### opacity
+`<Float>`类型，热力图全局的透明度，数值在0~1区间，默认值`0.8`
+
+#### color
+`<Array>`类型，热力图的透明度，默认值：
+```
+["interpolate",["linear"],["heatmap-density"],0,"rgba(0, 0, 255, 0)",0.1,"royalblue",0.3,"cyan",0.5,"lime",0.7,"yellow",1,"red"]
+```
+
+#### data
 `<Array>`类型，热力图数据。可参考：
 ```
 [
