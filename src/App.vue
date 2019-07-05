@@ -2,14 +2,16 @@
   <div id="app">
     <mapview :map-config="mapConfig" :osm-config="osmConfig"
       :map-types="mapTypes" :line="lineConfig" :point="pointConfig"
-      @pointClick="callback">
-      <markers :data="markerData" @markerClick="callback" @markerMouseenter="callback" @markerMouseleave="callback"></markers>
+      @pointClick="callback" :heatmap="heatmap">
+      <!-- <markers :data="markerData" @markerClick="callback" @markerMouseenter="callback" @markerMouseleave="callback"></markers> -->
     </mapview>
   </div>
 </template>
 
 <script>
 import imageBase64Code from '@/../public/base64'
+import heatmapData from '@/heatmapData.json'
+
 export default {
   name: 'app',
   data () {
@@ -22,9 +24,9 @@ export default {
       },
       osmConfig: {
         osmUrl: 'http://192.168.22.88:8700',
-        backgroundStyle: 'custombrightstyle'
+        backgroundStyle: 'positron'
       },
-      mapTypes: ['line'],
+      mapTypes: ['heatmap'],
       lineConfig: {
         color: 'green',
         width: 3,
@@ -53,7 +55,15 @@ export default {
         { lng: 122, lat: 40, height: 48, width: 48, base64: imageBase64Code },
         { lng: 110, lat: 36, height: 48, width: 48, base64: imageBase64Code },
         { lng: 120, lat: 30, height: 48, width: 48, base64: imageBase64Code }
-      ]
+      ],
+      heatmap: {
+        radius: 5,
+        weight: 1,
+        intensity: 1,
+        opacity: 0.8,
+        color: ['interpolate', ['linear'], ['heatmap-density'], 0, 'rgba(0, 0, 255, 0)', 0.2, 'royalblue', 0.4, 'cyan', 0.6, 'lime', 0.8, 'yellow', 1, 'red'],
+        data: heatmapData
+      }
     }
   },
   methods: {

@@ -1,12 +1,12 @@
 import Base from './base'
 export default class Heatmap extends Base {
-  constructor (osm, data) {
+  constructor (osm, heatmap) {
     super(osm)
     this.config.sources['heatmap-data'] = {
       'type': 'geojson',
       'data': {
         'type': 'FeatureCollection',
-        'features': data.map(item => {
+        'features': heatmap.data.map(item => {
           return { 'type': 'Feature', 'properties': item, 'geometry': { 'type': 'Point', 'coordinates': [ item.lng, item.lat ] } }
         })
       }
@@ -15,7 +15,14 @@ export default class Heatmap extends Base {
       'id': 'heat',
       'type': 'heatmap',
       'source': 'heatmap-data',
-      'maxzoom': 15
+      'maxzoom': 18,
+      'paint': {
+        'heatmap-radius': heatmap.radius || 10,
+        'heatmap-weight': heatmap.weight || 1,
+        'heatmap-intensity': heatmap.intensity || 1,
+        'heatmap-opacity': heatmap.opacity || 0.8,
+        'heatmap-color': heatmap.color || ['interpolate', ['linear'], ['heatmap-density'], 0, 'rgba(0, 0, 255, 0)', 0.1, 'royalblue', 0.3, 'cyan', 0.5, 'lime', 0.7, 'yellow', 1, 'red']
+      }
     })
   }
 }

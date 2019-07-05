@@ -41,21 +41,28 @@ export default {
     },
     // 热力图配置项
     heatmap: {
-      type: Array,
+      type: Object,
       default: function () {
-        return [{
-          lng: 120.1,
-          lat: 30.1,
-          value: 2.1
-        }, {
-          lng: 120.2,
-          lat: 30.2,
-          value: 2.2
-        }, {
-          lng: 120.3,
-          lat: 30.3,
-          value: 2.3
-        }]
+        return {
+          radius: 10,
+          weight: 1,
+          intensity: 1,
+          opacity: 0.8,
+          color: ['interpolate', ['linear'], ['heatmap-density'], 0, 'rgba(0, 0, 255, 0)', 0.1, 'royalblue', 0.3, 'cyan', 0.5, 'lime', 0.7, 'yellow', 1, 'red'],
+          data: [{
+            lng: 120.1,
+            lat: 30.1,
+            value: 2.1
+          }, {
+            lng: 120.2,
+            lat: 30.2,
+            value: 2.2
+          }, {
+            lng: 120.3,
+            lat: 30.3,
+            value: 2.3
+          }]
+        }
       }
     },
     // 3d柱图配置项
