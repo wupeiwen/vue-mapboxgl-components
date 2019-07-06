@@ -10,7 +10,7 @@
 
 <script>
 import imageBase64Code from '@/../public/base64'
-import heatmapData from '@/heatmapData.json'
+import heatmapData from '@/../public/heatmapData.json'
 
 export default {
   name: 'app',

@@ -163,47 +163,59 @@ export default {
   },
   // 配置项变化重新加载地图样式
   watch: {
-    osmConfig () {
-      if (this.map !== null) {
-        this.map.setStyle(this.mergeStyle())
-      }
+    mapConfig: {
+      handler (newValue, oldValue) {
+        if (this.map !== null) {
+          this.map.flyTo(Object.assign({ speed: 1 }, newValue))
+        }
+      },
+      deep: true
     },
-    mapConfig (newValue, oldValue) {
-      if (this.map !== null) {
-        this.map.flyTo(Object.assign({ speed: 1 }, newValue))
-      }
+    mapTypes: {
+      handler (newValue, oldValue) {
+        if (this.map !== null) {
+          this.ifPointAnimation()
+          this.ifLineAnimation()
+          this.map.setStyle(this.mergeStyle())
+        }
+      },
+      deep: true
     },
-    mapTypes () {
-      if (this.map !== null) {
-        this.ifPointAnimation()
-        this.ifLineAnimation()
-        this.map.setStyle(this.mergeStyle())
-      }
+    osmConfig: {
+      handler () {
+        this.mapSetStyle()
+      },
+      deep: true
     },
-    heatmap () {
-      if (this.map !== null) {
-        this.map.setStyle(this.mergeStyle())
-      }
+    heatmap: {
+      handler () {
+        this.mapSetStyle()
+      },
+      deep: true
     },
-    extrusion () {
-      if (this.map !== null) {
-        this.map.setStyle(this.mergeStyle())
-      }
+    extrusion: {
+      handler () {
+        this.mapSetStyle()
+      },
+      deep: true
     },
-    region () {
-      if (this.map !== null) {
-        this.map.setStyle(this.mergeStyle())
-      }
+    region: {
+      handler () {
+        this.mapSetStyle()
+      },
+      deep: true
     },
-    line () {
-      if (this.map !== null) {
-        this.map.setStyle(this.mergeStyle())
-      }
+    line: {
+      handler () {
+        this.mapSetStyle()
+      },
+      deep: true
     },
-    point () {
-      if (this.map !== null) {
-        this.map.setStyle(this.mergeStyle())
-      }
+    point: {
+      handler () {
+        this.mapSetStyle()
+      },
+      deep: true
     }
   },
   methods: {
@@ -262,6 +274,11 @@ export default {
         }
       })
       return style
+    },
+    mapSetStyle () {
+      if (this.map !== null) {
+        this.map.setStyle(this.mergeStyle())
+      }
     },
     // 判断是否启用动点
     ifPointAnimation () {
