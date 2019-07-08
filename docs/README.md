@@ -70,32 +70,32 @@ let callback = (data) =>{
 ------
 
 ### control 交互控件  <span style="color:orange;">[ ]</span>
-使用`<control></control>`标签实现交互控件的显示与隐藏，共有`showNavigation`、`showFullscreen`、`showScale`三个标签属性。
-#### `showNavigation`  <span style="color:orange;">[ ]</span>
-布尔类型，控制导航控件的显示与隐藏，默认为`false`。可参考：
+使用`<control></control>`标签实现交互控件的显示与隐藏，共有`navigation`、`fullscreen`、`scale`三个标签属性。
+#### `navigation`  <span style="color:orange;">[ ]</span>
+对象类型，控制导航控件中指南针的显示与隐藏(`showCompass`, true/false)、放大缩小按钮的显示与隐藏(`showZoom`, true/false)、位置(`position`, top/bottom-left/right 上/下-左右)。可参考：
 ```
 <!-- mapview标签 -->
 <mapview>
   <!-- control标签 -->
-  <control :showNavigation="true/false"></control>
+  <control :navigation="{showCompass：true/false, showZoom：true/false, position: 'top/bottom-left/right'}"></control>
 </mapview>
 ```
-#### `showFullscreen`  <span style="color:orange;">[ ]</span>
-布尔类型，控制全屏控件的显示与隐藏，默认为`false`。可参考：
+#### `fullscreen`  <span style="color:orange;">[ ]</span>
+对象类型，控制全屏控件的显示/隐藏(`show`, true/false)、位置(`position`, top/bottom-left/right 上/下-左右)。可参考：
 ```
 <!-- mapview标签 -->
 <mapview>
   <!-- control标签 -->
-  <control :showFullscreen="true/false"></control>
+  <control :fullscreen="{show: true/false, position: 'top/bottom-left/right'}"></control>
 </mapview>
 ```
-#### `showScale`  <span style="color:orange;">[ ]</span>
-布尔类型，控制标尺控件的显示与隐藏，默认为`false`。可参考：
+#### `scale`  <span style="color:orange;">[ ]</span>
+对象类型，控制标尺控件的显示/隐藏(`show`, true/false)、标尺单位(`unit`, 'imperial' 英里 / 'metric'公制 / 'nautical'海里)、最大宽度(`maxWidth`, 80), 位置(`position`, top/bottom-left/right 上/下-左右)。可参考：
 ```
 <!-- mapview标签 -->
 <mapview>
   <!-- control标签 -->
-  <control :showScale="true/false"></control>
+  <control :scale="{show: true/false, unit: 'metric', maxWidth: 80, position: 'top/bottom-left/right'}"></control>
 </mapview>
 ```
 ------
