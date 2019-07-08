@@ -4,6 +4,8 @@
       :map-types="mapTypes" :line="lineConfig" :point="pointConfig"
       @pointClick="callback" :heatmap="heatmap">
       <!-- <markers :data="markerData" @markerClick="callback" @markerMouseenter="callback" @markerMouseleave="callback"></markers> -->
+      <!-- <control :navigation="{showCompass: true, showZoom: false, position: 'top-left'}"
+        :fullscreen="{show: true, position: 'top-left'}" :scale="{show: true, position: 'top-left'}"></control> -->
     </mapview>
   </div>
 </template>

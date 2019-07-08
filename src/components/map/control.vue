@@ -8,17 +8,35 @@ import { EventBus } from '../eventbus.js'
 export default {
   name: 'control',
   props: {
-    showNavigation: {
-      type: Boolean,
-      detault: false
+    navigation: {
+      type: Object,
+      detault: function () {
+        return {
+          showCompass: true,
+          showZoom: true,
+          position: 'top-left'
+        }
+      }
     },
-    showFullscreen: {
-      type: Boolean,
-      detault: false
+    fullscreen: {
+      type: Object,
+      detault: function () {
+        return {
+          show: true,
+          position: 'top-left'
+        }
+      }
     },
-    showScale: {
-      type: Boolean,
-      detault: false
+    scale: {
+      type: Object,
+      detault: function () {
+        return {
+          show: true,
+          maxWidth: 80,
+          unit: 'metric',
+          position: 'top-left'
+        }
+      }
     }
   },
   watch: {
@@ -42,20 +60,21 @@ export default {
   methods: {
     setControl () {
       if (this.map) {
-        if (this.showNavigation) {
+        if (this.navigation && (this.navigation.showCompass || this.navigation.showZoom)) {
         // 导航
-          this.map.addControl(new NavigationControl(), 'top-left')
+          const option = { showCompass: this.navigation.showCompass || false, showZoom: this.navigation.showZoom || false }
+          this.map.addControl(new NavigationControl(option), this.navigation.position || 'top-left')
           console.log('%cvue-mapboxgl: Add NavigationControl', 'color: #67C23A;')
         }
-        if (this.showFullscreen) {
-        // 全屏
-          this.map.addControl(new FullscreenControl())
+        if (this.fullscreen && this.fullscreen.show) {
+        // 全屏 位置右上
+          this.map.addControl(new FullscreenControl(), this.fullscreen.position || 'top-left')
           console.log('%cvue-mapboxgl: Add FullscreenControl', 'color: #67C23A;')
         }
-        if (this.showScale) {
-        // 标尺
+        if (this.scale && this.scale.show) {
+        // 标尺 位置左下
         // 'imperial' 英里,  'metric' 公制 or  'nautical' 海里
-          this.map.addControl(new ScaleControl({ maxWidth: 80, unit: 'metric' }))
+          this.map.addControl(new ScaleControl({ maxWidth: this.scale.maxWidth || 80, unit: this.scale.unit || 'metric' }), this.scale.position || 'top-left')
           console.log('%cvue-mapboxgl: Add ScaleControl', 'color: #67C23A;')
         }
       }
