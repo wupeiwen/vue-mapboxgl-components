@@ -8,8 +8,18 @@
 ## 快速开始
 组件库的依赖安装、引入，以及开始使用的过程请参考[基础文档](https://github.com/wupeiwen/vue-mapboxgl-components)
 
+## 案例
+### 使用heatmap实现热力图
+![使用heatmap实现热力图](https://raw.githubusercontent.com/wupeiwen/vue-mapboxgl-components/master/public/demo_heatmap.png "使用heatmap实现热力图")
+
+### 使用markers实现自定义点图
+![使用markers实现自定义点图](https://raw.githubusercontent.com/wupeiwen/vue-mapboxgl-components/master/public/demo_markers.png "使用markers实现自定义点图")
+
 ## 组件说明
->配置项/参数标记<span style="color:red;">*</span> 的为必选项，<span style="color:orange;">[ ]</span> 为可选项
+>1.配置项/参数标记<span style="color:red;">*</span> 的为必选项，<span style="color:orange;">[ ]</span> 为可选项
+>
+>2.由于HTML中的特性名是大小写不敏感的，浏览器会把所有大写字符解释为小写字符，因此在实际使用本文档中的配置项/参数时，请将驼峰命名(camelCase)转换为短横线分隔命名(kebab-case)
+
 ### mapview 地图视图 <span style="color:red;">*</span>
 使用`<mapview></mapview>`标签实现地图底图以及相应可视化图层的配置，共有`osmConfig`、`mapConfig`、`mapTypes`三个标签属性，以及`@event`图层响应事件。
 #### `osmConfig` <span style="color:red;">*</span>
@@ -144,14 +154,31 @@ let htmlContent = '<h1>Hello World!</h1>'
 ------
 
 ### markers 标记组件 <span style="color:orange;">[ ]</span>
-使用`<markers></markers>`标签实现点标记，有`data`一个标签属性，以及`markerClick`、`markerMouseenter` 、`markerMouseleave` 三个事件
+使用`<markers></markers>`标签实现点标记，共有`data`、`showMarker`两个标签属性，以及`markerClick`、`markerMouseenter` 、`markerMouseleave` 三个事件
 #### data <span style="color:red;">*</span>
 数组类型，数组的每个元素描述了标记点的`lng`经度、`lat`维度、`height`标记图标的高度、`width`标记图标的宽度以及`base64`标记图标的base64编码。
 ```
 <!-- mapview标签 -->
 <mapview>
   <!-- markers标签 -->
-  <markers :data="data"></markers>
+  <markers :showMarker="true/false" :data="data"></markers>
+</mapview>
+<!-- 标记点自定义图标对应的base64编码 -->
+let imageBase64Code = 'data:image/png;base64,iVBORw0KGgoA...'
+<!-- 数据 -->
+let data = [
+  { lng: 122, lat: 40, height: 48, width: 48, base64: imageBase64Code },
+  { lng: 110, lat: 36, height: 48, width: 48, base64: imageBase64Code },
+  { lng: 120, lat: 30, height: 48, width: 48, base64: imageBase64Code }
+]
+```
+#### showMarker <span style="color:red;">*</span>
+布尔类型，控制导航控件的显示与隐藏，默认为`true`。可参考：
+```
+<!-- mapview标签 -->
+<mapview>
+  <!-- markers标签 -->
+  <markers :showMarker="true/false" :data="data"></markers>
 </mapview>
 <!-- 标记点自定义图标对应的base64编码 -->
 let imageBase64Code = 'data:image/png;base64,iVBORw0KGgoA...'

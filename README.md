@@ -24,7 +24,10 @@
 在 Vue 项目的 main.js 中写入以下内容：
 ```
 import Vue from 'vue'
+<!-- 引入组件的JavaScript文件 -->
 import 'vue-mapboxgl-components'
+<!-- 引入组件的CSS文件，如果没有CSS，Popups和Markers等元素将无效。 -->
+import 'vue-mapboxgl-components/lib/vue-mapboxgl-components.css'
 import App from './App.vue'
 
 Vue.config.productionTip = false
@@ -44,6 +47,10 @@ new Vue({
     <mapview :map-config="mapConfig" :osm-config="osmConfig"
       :map-types="mapTypes" :line="lineData" :point="pointData"
       @pointClick="callback">
+      <!-- markers、popup、control的配置在详细文档中有说明 -->
+      <!-- <markers ... ></markers> -->
+      <!-- <popup ... ></popup> -->
+      <!-- <control ... ></control> -->
     </mapview>
   </div>
 </template>
@@ -121,3 +128,10 @@ html,body{
 </style>
 ```
 ![动态点和动态连线](https://raw.githubusercontent.com/wupeiwen/vue-mapboxgl-components/master/public/point_line.gif "动态点和动态连线")
+
+## 案例
+### 使用heatmap实现热力图
+![使用heatmap实现热力图](https://raw.githubusercontent.com/wupeiwen/vue-mapboxgl-components/master/public/demo_heatmap.png "使用heatmap实现热力图")
+
+### 使用markers实现自定义点图
+![使用markers实现自定义点图](https://raw.githubusercontent.com/wupeiwen/vue-mapboxgl-components/master/public/demo_markers.png "使用markers实现自定义点图")
