@@ -28,7 +28,9 @@ export default {
           center: [120, 30],
           zoom: 4,
           pitch: 0,
-          bearing: 0
+          bearing: 0,
+          minZoom: 0,
+          maxZoom: 22
         }
       }
     },
@@ -234,7 +236,9 @@ export default {
         // 视角俯视的倾斜角度
         pitch: vue.mapConfig.pitch,
         // 地图的旋转角度
-        bearing: vue.mapConfig.bearing
+        bearing: vue.mapConfig.bearing,
+        minZoom: vue.mapConfig.minZoom || 0,
+        maxZoom: vue.mapConfig.maxZoom || 22
       })
       EventBus.$emit('mapLoaded', vue.map)
       console.log('%cvue-mapboxgl: Add Map', 'color: #67C23A;')

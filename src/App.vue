@@ -22,7 +22,9 @@ export default {
         center: [120.142577, 30.27719],
         zoom: 5,
         pitch: 0,
-        bearing: 0
+        bearing: 0,
+        minZoom: 3,
+        maxZoom: 15
       },
       osmConfig: {
         osmUrl: 'http://192.168.22.88:8700',
