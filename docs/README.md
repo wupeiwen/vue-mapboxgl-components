@@ -35,7 +35,7 @@ let osmConfig = {
 }
 ```
 #### `mapConfig` <span style="color:red;">*</span>
-对象类型，有`center <Array>`中心点、`zoom <Number>`缩放等级、`pitch <Number>`视角俯视的倾斜角度、`bearing <Number>`地图的旋转角度四个属性。
+对象类型，有`center <Array>`中心点、`zoom <Number>`缩放等级、`pitch <Number>`视角俯视的倾斜角度、`bearing <Number>`地图的旋转角度、`minZoom <Number>`最小缩放等级、`maxZoom <Number>`最大缩放等级六个属性。
 可参考：
 ```
 <!-- mapview标签 -->
@@ -45,7 +45,9 @@ let mapConfig = {
   center: [120.142577, 30.27719],
   zoom: 5,
   pitch: 0,
-  bearing: 0
+  bearing: 0,
+  minZoom: 0,
+  maxZoom: 22
 }
 ```
 #### `mapTypes` <span style="color:red;">*</span>
@@ -236,6 +238,9 @@ let callback = (data) =>{
 ------
 
 ### point
+#### useMultiColor
+`<Boolean>`类型，使用多种颜色，默认值`false`。为`false`时，使用`point.color`的颜色作为所有点的颜色；为`true`时，使用`point.data[i].color`的颜色作为该点的颜色。
+
 #### color
 `<String>`类型，点的颜色，默认值`'orange'`
 
@@ -264,10 +269,10 @@ let callback = (data) =>{
 ```
 <!-- 点数据 -->
 [
-  <!-- 点数据1，经度、维度、描述文字、数值(使用半径/数值映射时必须有该字段) -->
-  { lng: 122, lat: 37, name: '地点1', value: 10 },
-  { lng: 110, lat: 36, name: '地点2', value: 20 },
-  { lng: 120, lat: 30, name: '地点3', value: 30 }
+  <!-- 点数据1，经度、维度、描述文字、数值(使用半径/数值映射时必须有该字段)、颜色(如果使用多种颜色则需要有该字段) -->
+  { lng: 122, lat: 37, name: '地点1', value: 10, color:'orange' },
+  { lng: 110, lat: 36, name: '地点2', value: 20, color:'red' },
+  { lng: 120, lat: 30, name: '地点3', value: 30, color:'green' }
 ]
 ```
 ------

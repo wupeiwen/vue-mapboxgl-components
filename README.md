@@ -68,7 +68,11 @@ export default {
         <!-- 视角俯视的倾斜角度 -->
         pitch: 0,
         <!-- 地图的旋转角度 -->
-        bearing: 0
+        bearing: 0,
+        <!-- 地图的最小缩放等级 -->
+        maxZoom: 0,
+        <!-- 地图的最大缩放等级 -->
+        maxZoom: 22
       },
       osmConfig: {
         <!-- osm地址 -->
@@ -92,6 +96,7 @@ export default {
       },
       <!-- 点配置项 -->
       pointConfig: {
+        useMultiColor: false,
         color: 'orange',
         textColor: 'red',
         showAnimation: true,
