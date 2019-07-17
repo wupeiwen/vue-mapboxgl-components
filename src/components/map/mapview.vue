@@ -130,14 +130,15 @@ export default {
       type: Object,
       default: function () {
         return {
+          useMultiColor: true,
           color: 'orange',
           textColor: 'red',
           showAnimation: true,
           opacity: 0.8,
           data: [
-            { lng: 122, lat: 37, name: '地点1' },
-            { lng: 110, lat: 36, name: '地点2' },
-            { lng: 120, lat: 30, name: '地点3' }
+            { lng: 122, lat: 37, name: '地点1', color: 'orange' },
+            { lng: 110, lat: 36, name: '地点2', color: 'red' },
+            { lng: 120, lat: 30, name: '地点3', color: 'green' }
           ]
         }
       }

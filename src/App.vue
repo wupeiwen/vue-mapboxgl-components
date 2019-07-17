@@ -28,7 +28,7 @@ export default {
         osmUrl: 'http://192.168.22.88:8700',
         backgroundStyle: 'positron'
       },
-      mapTypes: ['heatmap'],
+      mapTypes: ['heatmap', 'point'],
       lineConfig: {
         color: 'green',
         width: 3,
@@ -41,6 +41,7 @@ export default {
         ]
       },
       pointConfig: {
+        useMultiColor: true,
         color: 'orange',
         textColor: 'red',
         showAnimation: true,
@@ -48,9 +49,9 @@ export default {
         radius: 20,
         textOffset: 1,
         data: [
-          { lng: 122, lat: 40, value: 10, name: '地点1' },
-          { lng: 110, lat: 36, value: 30, name: '地点2' },
-          { lng: 120, lat: 30, value: 10, name: '地点3' }
+          { lng: 122, lat: 40, value: 10, name: '地点1', color: 'orange' },
+          { lng: 110, lat: 36, value: 30, name: '地点2', color: 'red' },
+          { lng: 120, lat: 30, value: 10, name: '地点3', color: 'green' }
         ]
       },
       markerData: [

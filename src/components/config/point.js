@@ -30,7 +30,13 @@ export default class Point extends Base {
             return 5
           }
         })(),
-        'circle-color': point.color || '#888'
+        'circle-color': (function () {
+          if (point.useMultiColor) {
+            return ['get', 'color']
+          } else {
+            return point.color || '#888'
+          }
+        })()
       }
     })
     this.config.layers.push({
