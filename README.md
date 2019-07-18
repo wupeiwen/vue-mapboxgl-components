@@ -72,7 +72,7 @@ export default {
         <!-- 地图的最小缩放等级 -->
         maxZoom: 0,
         <!-- 地图的最大缩放等级 -->
-        maxZoom: 22
+        minZoom: 22
       },
       osmConfig: {
         <!-- osm地址 -->

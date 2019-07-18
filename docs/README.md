@@ -51,7 +51,7 @@ let mapConfig = {
 }
 ```
 #### `mapTypes` <span style="color:red;">*</span>
-数组类型，有`line`、`point`、`bar3d`、`region`、`heatmap`等可选项，不同类型可以搭配使用。
+数组类型，有`line`、`point`、`extrusion`、`region`、`heatmap`等可选项，不同类型可以搭配使用。
 可参考：
 ```
 <!-- mapview标签 -->
@@ -60,7 +60,7 @@ let mapConfig = {
 let mapTypes = ['line','point']
 ```
 #### `@event` <span style="color:orange;">[ ]</span>
-响应事件，有`point/line/extrusionClick`、`point/line/extrusion`、`point/line/extrusion`等响应事件，返回该`line/point/extrusion`的相应信息。
+响应事件，有`point/line/extrusionClick`、`point/line/extrusionMouseenter`、`point/line/extrusionMouseleave`等响应事件，返回该`line/point/extrusion`的相应信息。
 可参考：
 ```
 <!-- mapview标签 -->
@@ -192,7 +192,7 @@ let data = [
 ]
 ```
 #### @event <span style="color:orange;">[ ]</span>
-响应事件，包含`markerClick`鼠标点击事件、`markerMouseenter`鼠标移入事件以及`markerMouseenter`鼠标移除事件，返回该标记点的信息。可参考：
+响应事件，包含`markerClick`鼠标点击事件、`markerMouseenter`鼠标移入事件以及`markerMouseleave`鼠标移除事件，返回该标记点的信息。可参考：
 ```
 <!-- mapview标签 -->
 <mapview>
@@ -208,7 +208,7 @@ let callback = (data) =>{
 ------
 
 ## 可视化图层配置项
-### line
+### line  线
 #### color
 `<String>`类型，线的颜色，默认值`'green'`
 
@@ -237,7 +237,7 @@ let callback = (data) =>{
 ```
 ------
 
-### point
+### point  点
 #### useMultiColor
 `<Boolean>`类型，使用多种颜色，默认值`false`。为`false`时，使用`point.color`的颜色作为所有点的颜色；为`true`时，使用`point.data[i].color`的颜色作为该点的颜色。
 
@@ -277,7 +277,7 @@ let callback = (data) =>{
 ```
 ------
 
-### bar3d
+### extrusion  挤压
 #### shape
 `<String>`类型，横截面形状，默认值`'column'`正方形
 
@@ -321,7 +321,7 @@ let callback = (data) =>{
 ```
 ------
 
-### region
+### region  区域
 #### geojson
 `<Object>`类型，区域的geojson数据，可参考：
 ```
@@ -337,7 +337,7 @@ let callback = (data) =>{
 
 ------
 
-### heatmap
+### heatmap  热力
 #### radius
 `<Int>`类型，热力图单点的显示半径，单位像素，数值必须大于1，默认值`10`
 
