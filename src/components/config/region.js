@@ -1,5 +1,5 @@
 import Base from './base'
-export default class Regionmap extends Base {
+export default class Region extends Base {
   constructor (osm, region) {
     super(osm)
     this.config.sources['regionmap-data'] = {

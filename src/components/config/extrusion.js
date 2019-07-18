@@ -1,5 +1,5 @@
 import Base from './base'
-export default class Bar3d extends Base {
+export default class Extrusion extends Base {
   constructor (osm, extrusion) {
     super(osm)
     this.offset = extrusion.offset || 0.02
