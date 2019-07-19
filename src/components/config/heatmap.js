@@ -2,7 +2,7 @@ import Base from './base'
 export default class Heatmap extends Base {
   constructor (osm, heatmap) {
     super(osm)
-    let data = this.setFeatures(heatmap.data)
+    const data = this.setFeatures(heatmap.data)
     this.config.sources['heatmap-data'] = {
       'type': 'geojson',
       'data': data
@@ -23,10 +23,14 @@ export default class Heatmap extends Base {
   }
 
   setFeatures (data) {
-    let features = {
+    const features = {
       'type': 'FeatureCollection',
       'features': data.map(item => {
-        return { 'type': 'Feature', 'properties': item, 'geometry': { 'type': 'Point', 'coordinates': [ item.lng, item.lat ] } }
+        return {
+          'type': 'Feature',
+          'properties': item,
+          'geometry': { 'type': 'Point', 'coordinates': [item.lng, item.lat] }
+        }
       })
     }
     return features

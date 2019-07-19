@@ -60,7 +60,7 @@ export default {
         vue.markers = []
         vue.data.map(item => {
           let marker
-          let el = document.createElement('div')
+          const el = document.createElement('div')
           el.className = 'marker'
           if (item.base64) {
             el.style.backgroundImage = `url(${item.base64})`
@@ -103,7 +103,7 @@ export default {
       }
     },
     registerEvents (el, item) {
-      let vue = this
+      const vue = this
       el.addEventListener('click', function () {
         vue.$emit('markerClick', item)
       })

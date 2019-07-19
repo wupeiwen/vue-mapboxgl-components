@@ -56,7 +56,7 @@ export default class Point extends Base {
   }
 
   setFeatures (data) {
-    let features = {
+    const features = {
       'type': 'FeatureCollection',
       'features': data.map(item => {
         return {
@@ -73,7 +73,7 @@ export default class Point extends Base {
   }
 
   setCoordinates (lng, lat) {
-    let coordinates = [lng, lat]
+    const coordinates = [lng, lat]
     return coordinates
   }
 }

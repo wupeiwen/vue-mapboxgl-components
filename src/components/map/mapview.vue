@@ -266,7 +266,7 @@ export default {
     // 合并样式
     mergeStyle () {
       const vue = this
-      let style = vue.getStyle('base')
+      const style = vue.getStyle('base')
       vue.mapTypes.map((item) => {
         if (item !== 'base') {
           const otherStyle = vue.getStyle(item)
@@ -298,7 +298,7 @@ export default {
       }
     },
     addPointAnimotion () {
-      let vue = this
+      const vue = this
       let num = 0
       let flag = 'up'
       vue.pointAnimotion = setInterval(() => {
@@ -336,7 +336,7 @@ export default {
       }
     },
     addLineAnimotion () {
-      let vue = this
+      const vue = this
       let data = ''
       let lineLength = 0
       let linePointNum = 0
@@ -359,7 +359,7 @@ export default {
     // 注册地图事件
     registerEvents () {
       // click mouseenter mouseleave
-      let vue = this
+      const vue = this
       this.map.on('click', 'points', function (e) {
         vue.$emit('pointClick', e.features[0].properties)
       })

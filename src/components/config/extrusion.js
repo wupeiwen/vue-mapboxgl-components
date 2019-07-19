@@ -59,7 +59,7 @@ export default class Extrusion extends Base {
   }
 
   setFeatures (data) {
-    let features = {
+    const features = {
       'type': 'FeatureCollection',
       'features': data.map(item => {
         return {
