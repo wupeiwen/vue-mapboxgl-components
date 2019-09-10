@@ -325,15 +325,47 @@ let callback = (data) =>{
 #### geojson
 `<Object>`类型，区域的geojson数据，可参考：
 ```
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.40738010406493,
+              31.163606271560088
+            ],
+            [
+              121.40725135803221,
+              31.16048481908456
+            ],
+            [
+              121.41175746917725,
+              31.160007411404187
+            ],
+            [
+              121.40738010406493,
+              31.163606271560088
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
 ```
 #### color
-`<String>`类型，区域的颜色，默认值`'red'`
+`<String>`类型，区域的颜色，默认值`'#000'`
 
 #### opacity
-`<Float>`类型，区域的透明度，默认值`0.4`
+`<Float>`类型，区域的透明度，默认值`0.6`
 
-#### outineColor
-`<String>`类型，边框的颜色，默认值`'green'`
+#### outlineColor
+`<String>`类型，边框的颜色，默认值`'#323'`
 
 ------
 
@@ -351,7 +383,7 @@ let callback = (data) =>{
 `<Float>`类型，热力图全局的透明度，数值在0~1区间，默认值`0.8`
 
 #### color
-`<Array>`类型，热力图的透明度，默认值：
+`<Array>`类型，热力图的颜色，默认值：
 ```
 ["interpolate",["linear"],["heatmap-density"],0,"rgba(0, 0, 255, 0)",0.1,"royalblue",0.3,"cyan",0.5,"lime",0.7,"yellow",1,"red"]
 ```
@@ -364,5 +396,32 @@ let callback = (data) =>{
   { lng: 120.1, lat: 30.1, value: 2.1 },
   { lng: 120.2, lat: 30.2, value: 2.2 },
   { lng: 120.3, lat: 30.3, value: 2.3 }
+]
+```
+
+------
+
+### boundary  边界线
+
+#### type
+`<String>`类型，边界线的类别，包含`'dotted'`(虚线)、`'solid'`(实线)两种类别，默认值`'dotted'`
+
+#### width
+`<Int>`类型，边界线的宽度，数值必须大于0，默认值`3`
+
+#### opacity
+`<Float>`类型，边界线的透明度，数值在0~1区间，默认值`0.8`
+
+#### color
+`<Array>`类型，边界线的颜色，默认值`'#888'`
+
+#### data
+`<Array>`类型，热力图数据。可参考：
+```
+[
+  <!-- 经度，纬度 -->
+  [122, 37],
+  [110, 36],
+  [120, 30]
 ]
 ```
