@@ -15,7 +15,7 @@ export default {
       type: Object,
       default: function () {
         return {
-          osmUrl: 'http://139.224.131.57:8700',
+          osmUrl: 'http://183.194.242.89:8810',
           backgroundStyle: 'custombrightstyle'
         }
       }
@@ -104,9 +104,9 @@ export default {
       default: function () {
         return {
           geojson: {},
-          color: 'red',
+          color: '#000',
           opacity: 0.4,
-          outineColor: 'green'
+          outlineColor: '#323'
         }
       }
     },
@@ -121,8 +121,8 @@ export default {
           showAnimation: true,
           opacity: 0.8,
           data: [
-            { lat1: 122, lng1: 37, lat2: 120, lng2: 30 },
-            { lat1: 110, lng1: 36, lat2: 120, lng2: 30 }
+            { lng1: 122, lat1: 37, lng2: 120, lat2: 30 },
+            { lng1: 110, lat1: 36, lng2: 120, lat2: 30 }
           ]
         }
       }
