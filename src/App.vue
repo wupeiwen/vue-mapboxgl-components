@@ -2,6 +2,7 @@
   <div id="app">
     <mapview :map-config="mapConfig" :osm-config="osmConfig"
       :map-types="mapTypes" :line="lineConfig" :point="pointConfig"
+      :boundary='boundary'
       @pointClick="callback" :heatmap="heatmap">
       <!-- <markers :data="markerData" @markerClick="callback" @markerMouseenter="callback" @markerMouseleave="callback"></markers> -->
       <!-- <control :navigation="{showCompass: true, showZoom: false, position: 'top-left'}"
@@ -27,10 +28,10 @@ export default {
         maxZoom: 15
       },
       osmConfig: {
-        osmUrl: 'http://192.168.22.88:8700',
+        osmUrl: 'http://183.194.242.89:8810',
         backgroundStyle: 'positron'
       },
-      mapTypes: ['heatmap', 'point'],
+      mapTypes: ['boundary'],
       lineConfig: {
         color: 'green',
         width: 3,
@@ -68,6 +69,13 @@ export default {
         opacity: 0.8,
         color: ['interpolate', ['linear'], ['heatmap-density'], 0, 'rgba(0, 0, 255, 0)', 0.2, 'royalblue', 0.4, 'cyan', 0.6, 'lime', 0.8, 'yellow', 1, 'red'],
         data: heatmapData
+      },
+      boundary: {
+        type: 'dotted',
+        color: '#000',
+        opacity: 0.5,
+        width: 2,
+        data: [[122, 37], [110, 36], [120, 30]]
       }
     }
   },

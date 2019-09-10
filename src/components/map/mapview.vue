@@ -144,6 +144,18 @@ export default {
           ]
         }
       }
+    },
+    boundary: {
+      type: Object,
+      default: function () {
+        return {
+          type: 'dotted',
+          color: '#000000',
+          opacity: 0.6,
+          width: 2,
+          data: [[122, 37], [110, 36], [120, 30]]
+        }
+      }
     }
   },
   data () {
@@ -219,6 +231,12 @@ export default {
         this.mapSetStyle()
       },
       deep: true
+    },
+    boundary: {
+      handler () {
+        this.mapSetStyle()
+      },
+      deep: true
     }
   },
   methods: {
@@ -261,7 +279,8 @@ export default {
           : mapType === 'extrusion' ? new Style(vue.osmConfig, vue.extrusion).config
             : mapType === 'line' ? new Style(vue.osmConfig, vue.line).config
               : mapType === 'point' ? new Style(vue.osmConfig, vue.point).config
-                : new Style(vue.osmConfig).config
+                : mapType === 'boundary' ? new Style(vue.osmConfig, vue.boundary).config
+                  : new Style(vue.osmConfig).config
     },
     // 合并样式
     mergeStyle () {
