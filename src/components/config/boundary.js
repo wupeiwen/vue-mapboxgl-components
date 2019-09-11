@@ -2,7 +2,12 @@ import Base from './base'
 export default class Boundary extends Base {
   constructor (osm, boundary) {
     super(osm)
-    const data = this.setFeatures(boundary.data)
+    let data
+    if (boundary.dataType === 'geojson') {
+      data = boundary.data
+    } else if (boundary.dataType === 'json') {
+      this.setFeatures(boundary.data)
+    }
     this.config.sources['boundaryData'] = {
       'type': 'geojson',
       'data': data

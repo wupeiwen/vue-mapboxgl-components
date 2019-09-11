@@ -75,6 +75,7 @@ export default {
         color: '#000',
         opacity: 0.5,
         width: 2,
+        dataType: 'json',
         data: [[122, 37], [110, 36], [120, 30]]
       }
     }

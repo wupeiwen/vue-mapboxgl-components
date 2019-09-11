@@ -153,6 +153,7 @@ export default {
           color: '#000000',
           opacity: 0.6,
           width: 2,
+          dataType: 'json',
           data: [[122, 37], [110, 36], [120, 30]]
         }
       }
