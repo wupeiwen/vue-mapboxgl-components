@@ -81,6 +81,10 @@ export default {
           .setHTML(vue.htmlContent)
           .addTo(vue.map)
         console.log('%cvue-mapboxgl: Add Popup', 'color: #67C23A;')
+        vue.popup.on('close', function (event) {
+          console.log('popup close')
+          vue.$emit('popupClose', event)
+        })
       }
     },
     removePopup () {
