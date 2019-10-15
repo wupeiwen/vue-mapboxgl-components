@@ -64,7 +64,7 @@ let mapTypes = ['line','point']
 可参考：
 ```
 <!-- mapview标签 -->
-<mapview :pointClick="callback"></mapview>
+<mapview @pointClick="callback"></mapview>
 let callback = (data) =>{
   console.log(data)
 }
@@ -152,6 +152,20 @@ let htmlContent = '<h1>Hello World!</h1>'
   <!-- popup标签 -->
   <popup :showPopup="true/false" :laglng="laglng" :htmlContent="htmlContent" :closeOnClick="true"></popup>
 </mapview>
+```
+------
+#### `@event` <span style="color:orange;">[ ]</span>
+响应事件，有`popupClose`弹窗关闭事件，返回该事件的相应信息。
+可参考：
+```
+<!-- mapview标签 -->
+<mapview>
+  <!-- popup标签 -->
+    <popup :showPopup="true/false" :laglng="laglng" :htmlContent="htmlContent" :closeButton="true" :closeOnClick="true" @popupClose="callback"></popup>
+</mapview>
+let callback = (event) =>{
+  console.log(event)
+}
 ```
 ------
 
