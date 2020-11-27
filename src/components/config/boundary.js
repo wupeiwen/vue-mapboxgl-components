@@ -1,3 +1,9 @@
+/*
+ * @Author: wupeiwen <javapeiwen2010@gmail.com>
+ * @Date: 2020-11-27 09:16:27
+ * @LastEditors: wupeiwen <javapeiwen2010@gmail.com>
+ * @LastEditTime: 2020-11-27 09:54:21
+ */
 import Base from './base'
 export default class Boundary extends Base {
   constructor (osm, boundary) {
@@ -6,7 +12,7 @@ export default class Boundary extends Base {
     if (boundary.dataType === 'geojson') {
       data = boundary.data
     } else if (boundary.dataType === 'json') {
-      this.setFeatures(boundary.data)
+      data = this.setFeatures(boundary.data)
     }
     this.config.sources['boundaryData'] = {
       'type': 'geojson',
